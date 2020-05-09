@@ -3,3 +3,18 @@
 ## WIP
 
 The library is built with [GitHub REST API v3](https://developer.github.com/v3/projects/)
+
+
+## features
+
+- [ ] create a repository project
+- [ ] create an organization project
+- [ ] create a user project
+- [ ] read a project
+- [ ] update a project
+- [ ] delete a project
+
+- [ ] create a card
+- [ ] read a card
+- [ ] update a card
+- [ ] delete a card
