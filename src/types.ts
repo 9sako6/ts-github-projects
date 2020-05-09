@@ -34,3 +34,8 @@ export type Project = {
   created_at: string,
   updated_at: string
 }
+
+export type Auth = {
+  username: string;
+  password: string;
+} | { token: string; }
