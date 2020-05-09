@@ -1,9 +1,10 @@
 import client from './client'
 import { Auth, Project } from './types'
-import { AxiosInstance } from 'axios';
+// import { AxiosRequestConfig } from 'axios';
+// import { AspidaClient } from 'aspida';
 
 export default class TsGitHubProjects {
-  private client: AxiosInstance;
+  private client: any;
   constructor(
     private auth?: Auth
   ) {
@@ -14,9 +15,14 @@ export default class TsGitHubProjects {
     owner: string,
     repository: string
   ) {
-    const url = `/repos/${owner}/${repository}/projects`;
+    // 401 Unauthorized
     try {
-      const { data } = await this.client.get(url);
+      const data = await this.client
+        .repos
+        ._owner(owner)
+        ._repo(repository)
+        .projects
+        .$get();
       return data;
 
     } catch (err) {
@@ -26,14 +32,31 @@ export default class TsGitHubProjects {
       throw err;
     }
   }
-  public async listUserProjects(
-    user: string,
+  public async listOrganizationProjects(
+    organization: string,
   ): Promise<Project[] | undefined> {
-    const url = `/users/${user}/projects`;
     try {
-      const { data } = await this.client.get(url);
-      return data;
-
+      return await this.client
+        .orgs
+        ._org(organization)
+        .projects
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+  public async listUserProjects(
+    username: string,
+  ): Promise<Project[] | undefined> {
+    try {
+      return await this.client
+        .users
+        ._username(username)
+        .projects
+        .$get();
     } catch (err) {
       if (err.code === 404) {
         return undefined;
