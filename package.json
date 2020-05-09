@@ -8,12 +8,14 @@
     "url": "https://github.com/9sako6/ts-github-projects.git"
   },
   "scripts": {
+    "api:build": "./node_modules/.bin/aspida --build",
     "build": "tsc",
     "test": "jest",
     "lint": "npx eslint . --ext ts",
     "lintfix": "npx eslint . --ext ts --fix"
   },
   "devDependencies": {
+    "@aspida/axios": "^0.5.2",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.5",
     "@typescript-eslint/eslint-plugin": "^2.31.0",

@@ -1,11 +1,13 @@
 import axios from 'axios';
+import aspida from '@aspida/axios';
+import api from 'apis/$api';
 
 const baseURL = 'https://api.github.com';
-
-export default axios.create({
+const axiosConfig = {
   baseURL,
   headers: {
     'Accept': 'application/vnd.github.inertia-preview+json'
   },
-  responseType: 'json'
-})
+};
+
+export default api(aspida(axios, axiosConfig));

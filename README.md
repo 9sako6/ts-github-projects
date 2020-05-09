@@ -10,10 +10,12 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 - [ ] create a repository project
 - [ ] create an organization project
 - [ ] create a user project
-- [ ] read a project
+- [ ] read project
+  - [ ] list repository's projects
+  - [x] list organization's projects
+  - [x] list user's projects
 - [ ] update a project
 - [ ] delete a project
-
 - [ ] create a card
 - [ ] read a card
 - [ ] update a card
