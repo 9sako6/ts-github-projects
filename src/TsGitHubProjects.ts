@@ -1,30 +1,31 @@
-import client from './client'
-import { Auth, Project } from './types'
-// import { AxiosRequestConfig } from 'axios';
-// import { AspidaClient } from 'aspida';
+import makeClient from './client';
+import { Auth, Project } from './types';
+import { config } from 'dotenv';
+config();
 
 export default class TsGitHubProjects {
-  private client: any;
+  private client: any; // TODO:FIX
   constructor(
     private auth?: Auth
   ) {
-    this.client = client;
+    let headers = undefined;
+    if (this.auth && this.auth.token) {
+      headers = { Authorization: `token ${this.auth.token}` };
+    }
+    this.client = makeClient(headers);
   }
 
   public async listRepositoryProjects(
     owner: string,
     repository: string
   ) {
-    // 401 Unauthorized
     try {
-      const data = await this.client
+      return await this.client
         .repos
         ._owner(owner)
         ._repo(repository)
         .projects
         .$get();
-      return data;
-
     } catch (err) {
       if (err.code === 404) {
         return undefined;
@@ -32,6 +33,7 @@ export default class TsGitHubProjects {
       throw err;
     }
   }
+
   public async listOrganizationProjects(
     organization: string,
   ): Promise<Project[] | undefined> {
@@ -48,6 +50,7 @@ export default class TsGitHubProjects {
       throw err;
     }
   }
+
   public async listUserProjects(
     username: string,
   ): Promise<Project[] | undefined> {
