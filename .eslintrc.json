@@ -8,10 +8,10 @@
     "@typescript-eslint"
   ],
   "extends": [
-    "eslint:reccomended"
+    "plugin:@typescript-eslint/eslint-recommended"
   ],
   "rules": {
     "eol-last": ["error"],
-    "sem": ["error"]
+    "semi": ["error"]
   }
 }
