@@ -3,20 +3,20 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json",
-    "ecmaVersion": 2016
+    "sourceType": "module"
   },
   "plugins": [
     "@typescript-eslint"
   ],
   "extends": [
+    "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended"
   ],
-  "env": {
-    "es6": true
-  },
   "rules": {
     "eol-last": "error",
+    "quotes": ["error", "single"],
     "semi": "error",
-    "ImportDeclaration": "off"
+    "ImportDeclaration": "off",
+    "no-unused-vars": "off"
   }
 }

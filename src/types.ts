@@ -35,7 +35,8 @@ export type Project = {
   updated_at: string
 }
 
-export type Auth = {
-  username: string;
-  password: string;
-} | { token: string; }
+// export type Auth = {
+//   username: string;
+//   password: string;
+// } | { token: string; }
+export type Auth = { token: string; }

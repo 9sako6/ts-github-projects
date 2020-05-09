@@ -11,7 +11,7 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 - [ ] create an organization project
 - [ ] create a user project
 - [ ] read project
-  - [ ] list repository's projects
+  - [x] list repository's projects
   - [x] list organization's projects
   - [x] list user's projects
 - [ ] update a project
