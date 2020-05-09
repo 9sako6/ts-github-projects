@@ -1,2 +1,2 @@
-import TsGitHubProjects from './tsGitHubProjects';
+import TsGitHubProjects from './TsGitHubProjects';
 export default TsGitHubProjects;
