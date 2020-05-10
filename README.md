@@ -20,3 +20,4 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 - [ ] read a card
 - [ ] update a card
 - [ ] delete a card
+- [x] rate limit
