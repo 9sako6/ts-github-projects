@@ -68,6 +68,22 @@ export default class TsGitHubProjects {
     }
   }
 
+  public async getProject(
+    projectId: number,
+  ): Promise<Project | undefined> {
+    try {
+      return await this.client
+        .projects
+        ._project_id(projectId)
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
   public async rateLimit(): Promise<RateLimit> {
     try {
       return await this.client
