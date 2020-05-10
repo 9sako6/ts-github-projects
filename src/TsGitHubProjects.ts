@@ -1,6 +1,7 @@
 import makeClient from './client';
-import { Auth, Project } from './types';
+import { Auth, Project, RateLimit, CreateProjectRequest } from './types';
 import { config } from 'dotenv';
+import { AxiosResponse } from 'axios';
 config();
 
 export default class TsGitHubProjects {
@@ -18,7 +19,7 @@ export default class TsGitHubProjects {
   public async listRepositoryProjects(
     owner: string,
     repository: string
-  ) {
+  ): Promise<Project[] | undefined> {
     try {
       return await this.client
         .repos
@@ -66,5 +67,56 @@ export default class TsGitHubProjects {
       }
       throw err;
     }
+  }
+
+  public async getProject(
+    projectId: number,
+  ): Promise<Project | undefined> {
+    try {
+      return await this.client
+        .projects
+        ._project_id(projectId)
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  public async deleteProject(
+    projectId: number,
+  ): Promise<AxiosResponse> {
+    return await this.client
+      .projects
+      ._project_id(projectId)
+      .delete();
+  }
+
+  public async createRepositoryProject(
+    owner: string,
+    repository: string,
+    data: CreateProjectRequest
+  ): Promise<Project | undefined> {
+    try {
+      return await this.client
+        .repos
+        ._owner(owner)
+        ._repo(repository)
+        .projects
+        .$post({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  public async rateLimit(): Promise<RateLimit> {
+    return await this.client
+      .rate_limit
+      .$get();
   }
 }

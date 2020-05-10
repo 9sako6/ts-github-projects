@@ -40,3 +40,24 @@ export type Project = {
 //   password: string;
 // } | { token: string; }
 export type Auth = { token: string; }
+
+type RateLimitAttributes = {
+  limit: number;
+  ramaining: number;
+  reset: number;
+}
+
+export type RateLimit = {
+  resources: {
+    core: RateLimitAttributes;
+    graphql: RateLimitAttributes;
+    integration_manifest: RateLimitAttributes;
+    search: RateLimitAttributes;
+  }
+  rate: RateLimitAttributes;
+}
+
+export type CreateProjectRequest = {
+  name: string;
+  body?: string;
+}
