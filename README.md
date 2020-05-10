@@ -7,10 +7,10 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 
 ## features
 
-- [ ] create a project
+- [x] create a project
   - [x] create a repository project
-  - [ ] create an organization project
-  - [ ] create a user project
+  - [x] create an organization project
+  - [x] create a user project
 - [x] read a project
   - [x] get a project
   - [x] list repository's projects
