@@ -1,6 +1,9 @@
 # ts-github-projects
 
-![CI](https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg)
+[![CI][github-actions-image]][github-actions-link]
+
+[github-actions-image]:https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg
+[github-actions-link]:https://github.com/9sako6/ts-github-projects/actions?query=workflow%3ACI
 
 ## WIP
 
