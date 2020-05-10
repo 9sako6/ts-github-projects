@@ -1,5 +1,5 @@
 import makeClient from './client';
-import { Auth, Project } from './types';
+import { Auth, Project, RateLimit } from './types';
 import { config } from 'dotenv';
 config();
 
@@ -64,6 +64,16 @@ export default class TsGitHubProjects {
       if (err.code === 404) {
         return undefined;
       }
+      throw err;
+    }
+  }
+
+  public async rateLimit(): Promise<RateLimit> {
+    try {
+      return await this.client
+        .rate_limit
+        .$get();
+    } catch (err) {
       throw err;
     }
   }

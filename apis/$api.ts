@@ -1,8 +1,9 @@
 /* eslint-disable */
 import { AspidaClient } from 'aspida'
 import { Methods as Methods0 } from './orgs/_org/projects'
-import { Methods as Methods1 } from './repos/_owner/_repo/projects'
-import { Methods as Methods2 } from './users/_username/projects'
+import { Methods as Methods1 } from './rate_limit'
+import { Methods as Methods2 } from './repos/_owner/_repo/projects'
+import { Methods as Methods3 } from './users/_username/projects'
 
 const api = <T>(client: AspidaClient<T>) => {
   const prefix = (client.baseURL === undefined ? '' : client.baseURL).replace(/\/$/, '')
@@ -18,14 +19,20 @@ const api = <T>(client: AspidaClient<T>) => {
         }
       })
     },
+    rate_limit: {
+      get: (option?: { config?: T }) =>
+        client.fetch<Methods1['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json(),
+      $get: async (option?: { config?: T }) =>
+        (await client.fetch<Methods1['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json()).data
+    },
     repos: {
       _owner: (val1: number | string) => ({
         _repo: (val2: number | string) => ({
           projects: {
             get: (option?: { config?: T }) =>
-              client.fetch<Methods1['get']['resBody']>(prefix, `/repos/${val1}/${val2}/projects`, 'GET', option).json(),
+              client.fetch<Methods2['get']['resBody']>(prefix, `/repos/${val1}/${val2}/projects`, 'GET', option).json(),
             $get: async (option?: { config?: T }) =>
-              (await client.fetch<Methods1['get']['resBody']>(prefix, `/repos/${val1}/${val2}/projects`, 'GET', option).json()).data
+              (await client.fetch<Methods2['get']['resBody']>(prefix, `/repos/${val1}/${val2}/projects`, 'GET', option).json()).data
           }
         })
       })
@@ -34,9 +41,9 @@ const api = <T>(client: AspidaClient<T>) => {
       _username: (val3: number | string) => ({
         projects: {
           get: (option?: { config?: T }) =>
-            client.fetch<Methods2['get']['resBody']>(prefix, `/users/${val3}/projects`, 'GET', option).json(),
+            client.fetch<Methods3['get']['resBody']>(prefix, `/users/${val3}/projects`, 'GET', option).json(),
           $get: async (option?: { config?: T }) =>
-            (await client.fetch<Methods2['get']['resBody']>(prefix, `/users/${val3}/projects`, 'GET', option).json()).data
+            (await client.fetch<Methods3['get']['resBody']>(prefix, `/users/${val3}/projects`, 'GET', option).json()).data
         }
       })
     }

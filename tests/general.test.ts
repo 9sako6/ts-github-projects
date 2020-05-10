@@ -21,4 +21,11 @@ describe('testing', () => {
       expect(data).toBeDefined();
     });
   });
+
+  it('rate limit', async () => {
+    const gh = new TsGitHubProjects();
+    const data = await gh.rateLimit();
+    console.log(data);
+    expect(data).toBeDefined();
+  })
 });
