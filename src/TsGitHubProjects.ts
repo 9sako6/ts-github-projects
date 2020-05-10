@@ -1,6 +1,7 @@
 import makeClient from './client';
 import { Auth, Project, RateLimit, CreateProjectRequest } from './types';
 import { config } from 'dotenv';
+import { AxiosResponse } from 'axios';
 config();
 
 export default class TsGitHubProjects {
@@ -84,6 +85,15 @@ export default class TsGitHubProjects {
     }
   }
 
+  public async deleteProject(
+    projectId: number,
+  ): Promise<AxiosResponse> {
+    return await this.client
+      .projects
+      ._project_id(projectId)
+      .delete();
+  }
+
   public async createRepositoryProject(
     owner: string,
     repository: string,
@@ -105,12 +115,8 @@ export default class TsGitHubProjects {
   }
 
   public async rateLimit(): Promise<RateLimit> {
-    try {
-      return await this.client
-        .rate_limit
-        .$get();
-    } catch (err) {
-      throw err;
-    }
+    return await this.client
+      .rate_limit
+      .$get();
   }
 }

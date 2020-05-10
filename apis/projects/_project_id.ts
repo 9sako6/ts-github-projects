@@ -4,4 +4,5 @@ export type Methods = {
   get: {
     resBody: Project;
   }
+  delete: {}
 }
