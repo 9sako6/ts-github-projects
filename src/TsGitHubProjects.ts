@@ -1,5 +1,5 @@
 import makeClient from './client';
-import { Auth, Project, RateLimit } from './types';
+import { Auth, Project, RateLimit, CreateProjectRequest } from './types';
 import { config } from 'dotenv';
 config();
 
@@ -76,6 +76,26 @@ export default class TsGitHubProjects {
         .projects
         ._project_id(projectId)
         .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  public async createRepositoryProject(
+    owner: string,
+    repository: string,
+    data: CreateProjectRequest
+  ): Promise<Project | undefined> {
+    try {
+      return await this.client
+        .repos
+        ._owner(owner)
+        ._repo(repository)
+        .projects
+        .$post({ data });
     } catch (err) {
       if (err.code === 404) {
         return undefined;

@@ -29,6 +29,22 @@ describe('testing', () => {
     expect(data).toBeDefined();
   });
 
+  describe('create', () => {
+    it('create valid repository\'s projects', async () => {
+      expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
+      const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
+      const data = await gh.createRepositoryProject(
+        '9sako6',
+        'ts-github-projects',
+        {
+          name: "create_valid_repository_project_test",
+          body: "test projcet"
+        }
+      );
+      expect(data).toBeDefined();
+    });
+  });
+
   it('rate limit', async () => {
     const gh = new TsGitHubProjects();
     const data = await gh.rateLimit();

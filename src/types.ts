@@ -56,3 +56,8 @@ export type RateLimit = {
   }
   rate: RateLimitAttributes;
 }
+
+export type CreateProjectRequest = {
+  name: string;
+  body?: string;
+}
