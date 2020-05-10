@@ -18,7 +18,7 @@ export default class TsGitHubProjects {
   public async listRepositoryProjects(
     owner: string,
     repository: string
-  ) {
+  ): Promise<Project[] | undefined> {
     try {
       return await this.client
         .repos
