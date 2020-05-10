@@ -1,5 +1,7 @@
 # ts-github-projects
 
+![CI](https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg)
+
 ## WIP
 
 The library is built with [GitHub REST API v3](https://developer.github.com/v3/projects/)
