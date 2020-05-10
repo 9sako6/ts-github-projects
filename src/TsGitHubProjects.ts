@@ -114,6 +114,40 @@ export default class TsGitHubProjects {
     }
   }
 
+  public async createOrganizationProject(
+    organization: string,
+    data: CreateProjectRequest
+  ): Promise<Project | undefined> {
+    try {
+      return await this.client
+        .orgs
+        ._org(organization)
+        .projects
+        .$post({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  public async createUserProject(
+    data: CreateProjectRequest
+  ): Promise<Project | undefined> {
+    try {
+      return await this.client
+        .user
+        .projects
+        .$post({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
   public async rateLimit(): Promise<RateLimit> {
     return await this.client
       .rate_limit

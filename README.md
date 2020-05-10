@@ -1,5 +1,7 @@
 # ts-github-projects
 
+![CI](https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg)
+
 ## WIP
 
 The library is built with [GitHub REST API v3](https://developer.github.com/v3/projects/)
@@ -7,10 +9,10 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 
 ## features
 
-- [ ] create a project
+- [x] create a project
   - [x] create a repository project
-  - [ ] create an organization project
-  - [ ] create a user project
+  - [x] create an organization project
+  - [x] create a user project
 - [x] read a project
   - [x] get a project
   - [x] list repository's projects

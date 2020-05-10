@@ -2,7 +2,7 @@ name: CI
 on: [push]
 jobs:
   build:
-    name: build
+    name: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -12,6 +12,8 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
-      # - uses: borales/actions-yarn@v2.0.0
-      #   with:
-      #     cmd: test # will run `yarn test` command
+      - uses: borales/actions-yarn@v2.0.0
+        env:
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        with:
+          cmd: test # will run `yarn test` command
