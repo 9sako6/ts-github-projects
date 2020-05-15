@@ -25,6 +25,6 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 - [x] delete a project
 - [ ] create a card
 - [ ] read a card
-- [ ] update a card
+- [x] update a card
 - [ ] delete a card
 - [x] rate limit
