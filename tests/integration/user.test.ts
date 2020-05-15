@@ -19,6 +19,6 @@ describe('testing a user project', () => {
     expect(project).toBeDefined();
     // delete a project
     const res = await gh.deleteProject(projectId);
-    expect(res.status).toBe(204);
+    expect(res.status).toEqual(204);
   });
 });
