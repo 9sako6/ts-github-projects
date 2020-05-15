@@ -21,7 +21,7 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
   - [x] list repository's projects
   - [x] list organization's projects
   - [x] list user's projects
-- [ ] update a project
+- [x] update a project
 - [x] delete a project
 - [ ] create a card
 - [ ] read a card
