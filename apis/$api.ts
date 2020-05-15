@@ -3,10 +3,11 @@ import { AspidaClient } from 'aspida'
 import { Methods as Methods0 } from './orgs/_org/projects'
 import { Methods as Methods1 } from './projects/_column_project_id/columns'
 import { Methods as Methods2 } from './projects/_project_id'
-import { Methods as Methods3 } from './rate_limit'
-import { Methods as Methods4 } from './repos/_owner/_repo/projects'
-import { Methods as Methods5 } from './user/projects'
-import { Methods as Methods6 } from './users/_username/projects'
+import { Methods as Methods3 } from './projects/columns/_column_id'
+import { Methods as Methods4 } from './rate_limit'
+import { Methods as Methods5 } from './repos/_owner/_repo/projects'
+import { Methods as Methods6 } from './user/projects'
+import { Methods as Methods7 } from './users/_username/projects'
 
 const api = <T>(client: AspidaClient<T>) => {
   const prefix = (client.baseURL === undefined ? '' : client.baseURL).replace(/\/$/, '')
@@ -52,45 +53,53 @@ const api = <T>(client: AspidaClient<T>) => {
           client.fetch<Methods2['patch']['resBody']>(prefix, `/projects/${val2}`, 'PATCH', option).json(),
         $patch: async (option: { data: Methods2['patch']['reqBody'], config?: T }) =>
           (await client.fetch<Methods2['patch']['resBody']>(prefix, `/projects/${val2}`, 'PATCH', option).json()).data
-      })
+      }),
+      columns: {
+        _column_id: (val3: number | string) => ({
+          get: (option?: { config?: T }) =>
+            client.fetch<Methods3['get']['resBody']>(prefix, `/projects/columns/${val3}`, 'GET', option).json(),
+          $get: async (option?: { config?: T }) =>
+            (await client.fetch<Methods3['get']['resBody']>(prefix, `/projects/columns/${val3}`, 'GET', option).json()).data
+        })
+      }
     },
     rate_limit: {
       get: (option?: { config?: T }) =>
-        client.fetch<Methods3['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json(),
+        client.fetch<Methods4['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json(),
       $get: async (option?: { config?: T }) =>
-        (await client.fetch<Methods3['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json()).data
+        (await client.fetch<Methods4['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json()).data
     },
     repos: {
-      _owner: (val3: number | string) => ({
-        _repo: (val4: number | string) => ({
+      _owner: (val4: number | string) => ({
+        _repo: (val5: number | string) => ({
           projects: {
             get: (option?: { config?: T }) =>
-              client.fetch<Methods4['get']['resBody']>(prefix, `/repos/${val3}/${val4}/projects`, 'GET', option).json(),
+              client.fetch<Methods5['get']['resBody']>(prefix, `/repos/${val4}/${val5}/projects`, 'GET', option).json(),
             $get: async (option?: { config?: T }) =>
-              (await client.fetch<Methods4['get']['resBody']>(prefix, `/repos/${val3}/${val4}/projects`, 'GET', option).json()).data,
-            post: (option: { data: Methods4['post']['reqBody'], config?: T }) =>
-              client.fetch<Methods4['post']['resBody']>(prefix, `/repos/${val3}/${val4}/projects`, 'POST', option).json(),
-            $post: async (option: { data: Methods4['post']['reqBody'], config?: T }) =>
-              (await client.fetch<Methods4['post']['resBody']>(prefix, `/repos/${val3}/${val4}/projects`, 'POST', option).json()).data
+              (await client.fetch<Methods5['get']['resBody']>(prefix, `/repos/${val4}/${val5}/projects`, 'GET', option).json()).data,
+            post: (option: { data: Methods5['post']['reqBody'], config?: T }) =>
+              client.fetch<Methods5['post']['resBody']>(prefix, `/repos/${val4}/${val5}/projects`, 'POST', option).json(),
+            $post: async (option: { data: Methods5['post']['reqBody'], config?: T }) =>
+              (await client.fetch<Methods5['post']['resBody']>(prefix, `/repos/${val4}/${val5}/projects`, 'POST', option).json()).data
           }
         })
       })
     },
     user: {
       projects: {
-        post: (option: { data: Methods5['post']['reqBody'], config?: T }) =>
-          client.fetch<Methods5['post']['resBody']>(prefix, '/user/projects', 'POST', option).json(),
-        $post: async (option: { data: Methods5['post']['reqBody'], config?: T }) =>
-          (await client.fetch<Methods5['post']['resBody']>(prefix, '/user/projects', 'POST', option).json()).data
+        post: (option: { data: Methods6['post']['reqBody'], config?: T }) =>
+          client.fetch<Methods6['post']['resBody']>(prefix, '/user/projects', 'POST', option).json(),
+        $post: async (option: { data: Methods6['post']['reqBody'], config?: T }) =>
+          (await client.fetch<Methods6['post']['resBody']>(prefix, '/user/projects', 'POST', option).json()).data
       }
     },
     users: {
-      _username: (val5: number | string) => ({
+      _username: (val6: number | string) => ({
         projects: {
           get: (option?: { config?: T }) =>
-            client.fetch<Methods6['get']['resBody']>(prefix, `/users/${val5}/projects`, 'GET', option).json(),
+            client.fetch<Methods7['get']['resBody']>(prefix, `/users/${val6}/projects`, 'GET', option).json(),
           $get: async (option?: { config?: T }) =>
-            (await client.fetch<Methods6['get']['resBody']>(prefix, `/users/${val5}/projects`, 'GET', option).json()).data
+            (await client.fetch<Methods7['get']['resBody']>(prefix, `/users/${val6}/projects`, 'GET', option).json()).data
         }
       })
     }

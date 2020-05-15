@@ -34,9 +34,13 @@ describe('testing a organization project', () => {
     expect(project?.state).toBe(updateData.state);
     // create a column
     const createColumnData = { name: `new column for test_at_${Date.now()}` };
-    const newColumn = await gh.createColumn(projectId, createColumnData);
-    expect(newColumn).toBeDefined();
-    expect(newColumn?.name).toBe(createColumnData.name);
+    let column = await gh.createColumn(projectId, createColumnData);
+    expect(column).toBeDefined();
+    expect(column?.name).toBe(createColumnData.name);
+    // get a column
+    const columnId = column!.id!;
+    column = await gh.getColumn(columnId);
+    expect(column).toBeDefined();
     // delete a project
     const res = await gh.deleteProject(projectId);
     expect(res.status).toBe(204);
