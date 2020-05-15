@@ -19,7 +19,7 @@ export default abstract class GitHubProjects {
   public async listRepositoryProjects(
     owner: string,
     repository: string
-  ): Promise<Project[] | undefined> {
+  ): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .repos
@@ -37,7 +37,7 @@ export default abstract class GitHubProjects {
 
   public async listOrganizationProjects(
     organization: string,
-  ): Promise<Project[] | undefined> {
+  ): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .orgs
@@ -54,7 +54,7 @@ export default abstract class GitHubProjects {
 
   public async listUserProjects(
     username: string,
-  ): Promise<Project[] | undefined> {
+  ): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .users
