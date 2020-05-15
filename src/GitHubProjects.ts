@@ -1,8 +1,16 @@
 import makeClient from './client';
-import { Auth, Project, RateLimit, CreateProjectRequest, UpdateProjectRequest, CreateColumnRequest, Column } from './types';
+import {
+  Auth,
+  RateLimit,
+  Project,
+  Column,
+  CreateProjectRequest,
+  UpdateProjectRequest,
+  CreateColumnRequest,
+  UpdateColumnRequest,
+} from './types';
 import { config } from 'dotenv';
 import { AspidaResponse } from 'aspida';
-import { AxiosResponse } from 'axios';
 import { ApiInstance } from 'apis/$api';
 config();
 
@@ -215,7 +223,25 @@ export default abstract class GitHubProjects {
         .projects
         ._column_project_id(projectId)
         .columns
-        .$get()
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  public async updateColumn(
+    columnId: number,
+    data: UpdateColumnRequest
+  ): Promise<Column | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        ._column_id(columnId)
+        .$patch({ data });
     } catch (err) {
       if (err.code === 404) {
         return undefined;

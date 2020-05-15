@@ -83,3 +83,4 @@ export type UpdateProjectRequest = Partial<{
 }>;
 
 export type CreateColumnRequest = { name: string; };
+export type UpdateColumnRequest = { name: string; };
