@@ -1,5 +1,5 @@
 import makeClient from './client';
-import { Auth, Project, RateLimit, CreateProjectRequest } from './types';
+import { Auth, Project, RateLimit, CreateProjectRequest, UpdateProjectRequest } from './types';
 import { config } from 'dotenv';
 import { AxiosResponse } from 'axios';
 config();
@@ -140,6 +140,27 @@ export default abstract class GitHubProjects {
         .user
         .projects
         .$post({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Note: Updating a project's organization_permission requires admin access to the project.
+   * @param data 
+   */
+  public async updateProject(
+    projectId: number,
+    data: UpdateProjectRequest
+  ): Promise<Project | undefined> {
+    try {
+      return await this.client
+        .projects
+        ._project_id(projectId)
+        .$patch({ data });
     } catch (err) {
       if (err.code === 404) {
         return undefined;
