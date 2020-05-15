@@ -10,8 +10,8 @@ describe('testing a repository project', () => {
       '9sako6',
       'ts-github-projects',
       {
-        name: 'create_repository_project_integration_test',
-        body: 'test projcet'
+        name: `create_repository_project_integration_test_at_${Date.now()}`,
+        body: `test projcet ${Date.now()}`
       }
     );
     expect(createdProject).toBeDefined();
@@ -21,6 +21,6 @@ describe('testing a repository project', () => {
     expect(project).toBeDefined();
     // delete a project
     const res = await gh.deleteProject(projectId);
-    expect(res.status).toBe(204);
+    expect(res.status).toEqual(204);
   });
 });

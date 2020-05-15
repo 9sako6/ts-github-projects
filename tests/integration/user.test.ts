@@ -8,8 +8,8 @@ describe('testing a user project', () => {
     // create a project
     const createdProject = await gh.createUserProject(
       {
-        name: 'create_user_project_integration_test',
-        body: 'test projcet'
+        name: `create_user_project_integration_test_at_${Date.now()}`,
+        body: `test projcet ${Date.now()}`
       }
     );
     expect(createdProject).toBeDefined();
@@ -19,6 +19,6 @@ describe('testing a user project', () => {
     expect(project).toBeDefined();
     // delete a project
     const res = await gh.deleteProject(projectId);
-    expect(res.status).toBe(204);
+    expect(res.status).toEqual(204);
   });
 });

@@ -1,11 +1,21 @@
 import makeClient from './client';
-import { Auth, Project, RateLimit, CreateProjectRequest, UpdateProjectRequest } from './types';
+import {
+  Auth,
+  RateLimit,
+  Project,
+  Column,
+  CreateProjectRequest,
+  UpdateProjectRequest,
+  CreateColumnRequest,
+  UpdateColumnRequest,
+} from './types';
 import { config } from 'dotenv';
-import { AxiosResponse } from 'axios';
+import { AspidaResponse } from 'aspida';
+import { ApiInstance } from 'apis/$api';
 config();
 
 export default abstract class GitHubProjects {
-  protected client: any; // TODO:FIX
+  protected client: ApiInstance;
   constructor(
     protected auth?: Auth
   ) {
@@ -19,7 +29,7 @@ export default abstract class GitHubProjects {
   public async listRepositoryProjects(
     owner: string,
     repository: string
-  ): Promise<Project[] | undefined> {
+  ): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .repos
@@ -37,7 +47,7 @@ export default abstract class GitHubProjects {
 
   public async listOrganizationProjects(
     organization: string,
-  ): Promise<Project[] | undefined> {
+  ): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .orgs
@@ -54,7 +64,7 @@ export default abstract class GitHubProjects {
 
   public async listUserProjects(
     username: string,
-  ): Promise<Project[] | undefined> {
+  ): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .users
@@ -87,7 +97,7 @@ export default abstract class GitHubProjects {
 
   public async deleteProject(
     projectId: number,
-  ): Promise<AxiosResponse> {
+  ): Promise<AspidaResponse<null, Record<string, string>>> {
     return await this.client
       .projects
       ._project_id(projectId)
@@ -160,6 +170,77 @@ export default abstract class GitHubProjects {
       return await this.client
         .projects
         ._project_id(projectId)
+        .$patch({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+
+  async createColumn(
+    projectId: number,
+    data: CreateColumnRequest
+  ): Promise<Column | undefined> {
+    try {
+      return await this.client
+        .projects
+        ._column_project_id(projectId)
+        .columns
+        .$post({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  public async getColumn(
+    columnId: number,
+  ): Promise<Column | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        ._column_id(columnId)
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  public async listColumns(
+    projectId: number
+  ): Promise<Array<Column> | undefined> {
+    try {
+      return await this.client
+        .projects
+        ._column_project_id(projectId)
+        .columns
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  public async updateColumn(
+    columnId: number,
+    data: UpdateColumnRequest
+  ): Promise<Column | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        ._column_id(columnId)
         .$patch({ data });
     } catch (err) {
       if (err.code === 404) {
