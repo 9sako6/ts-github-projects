@@ -38,6 +38,15 @@ export interface Project extends Timestamp {
   creator: Creator;
 }
 
+export interface Column extends Timestamp {
+  url: string;
+  project_url: string;
+  cards_url: string;
+  id: number;
+  node_id: string;
+  name: string;
+}
+
 // export type Auth = {
 //   username: string;
 //   password: string;
