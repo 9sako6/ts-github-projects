@@ -63,7 +63,11 @@ const api = <T>(client: AspidaClient<T>) => {
           patch: (option: { data: Methods3['patch']['reqBody'], config?: T }) =>
             client.fetch<Methods3['patch']['resBody']>(prefix, `/projects/columns/${val3}`, 'PATCH', option).json(),
           $patch: async (option: { data: Methods3['patch']['reqBody'], config?: T }) =>
-            (await client.fetch<Methods3['patch']['resBody']>(prefix, `/projects/columns/${val3}`, 'PATCH', option).json()).data
+            (await client.fetch<Methods3['patch']['resBody']>(prefix, `/projects/columns/${val3}`, 'PATCH', option).json()).data,
+          delete: (option?: { config?: T }) =>
+            client.fetch<void>(prefix, `/projects/columns/${val3}`, 'DELETE', option).send(),
+          $delete: async (option?: { config?: T }) =>
+            (await client.fetch<void>(prefix, `/projects/columns/${val3}`, 'DELETE', option).send()).data
         })
       }
     },

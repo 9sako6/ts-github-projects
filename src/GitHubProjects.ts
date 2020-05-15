@@ -250,6 +250,16 @@ export default abstract class GitHubProjects {
     }
   }
 
+  public async deleteColumn(
+    columnId: number,
+  ): Promise<AspidaResponse<null, Record<string, string>>> {
+    return await this.client
+      .projects
+      .columns
+      ._column_id(columnId)
+      .delete();
+  }
+
   public async rateLimit(): Promise<RateLimit> {
     return await this.client
       .rate_limit

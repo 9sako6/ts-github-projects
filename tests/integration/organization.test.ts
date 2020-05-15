@@ -32,24 +32,6 @@ describe('testing a organization project', () => {
     expect(project?.name).toEqual(updateProjectData.name);
     expect(project?.body).toEqual(updateProjectData.body);
     expect(project?.state).toEqual(updateProjectData.state);
-    // create a column
-    const createColumnData = { name: `new_column_for_test_at_${Date.now()}` };
-    let column = await gh.createColumn(projectId, createColumnData);
-    expect(column).toBeDefined();
-    expect(column?.name).toEqual(createColumnData.name);
-    // get a column
-    const columnId = column!.id!;
-    column = await gh.getColumn(columnId);
-    expect(column).toBeDefined();
-    // list columns
-    const columnsList = await gh.listColumns(projectId);
-    expect(columnsList).toBeDefined();
-    expect(columnsList![0]).toEqual(column);
-    // update a column
-    const updateColumnData = { name: `new_column_for_test_at_${Date.now()}` };
-    column = await gh.updateColumn(column!.id, updateColumnData);
-    expect(column).toBeDefined();
-    expect(column!.name).toEqual(updateColumnData.name);
     // delete a project
     const res = await gh.deleteProject(projectId);
     expect(res.status).toEqual(204);
