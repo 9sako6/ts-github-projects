@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { AspidaRequest, AspidaClient } from 'aspida';
 import aspida from '@aspida/axios';
-import api from 'apis/$api';
+import api, { ApiInstance } from 'apis/$api';
 
 type Headers = {
   Accept: string;
@@ -18,9 +19,10 @@ const axiosConfig: {
   },
 };
 
-export default (headers?: { Authorization?: string }) => {
+export default (headers?: { Authorization?: string }): ApiInstance => {
   if (headers && headers.Authorization) {
     axiosConfig.headers.Authorization = headers.Authorization;
   }
-  return api(aspida(axios, axiosConfig));
+  const client = api(aspida(axios, axiosConfig));
+  return client as ApiInstance;
 };

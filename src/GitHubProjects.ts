@@ -1,11 +1,13 @@
 import makeClient from './client';
-import { Auth, Project, RateLimit, CreateProjectRequest, UpdateProjectRequest } from './types';
+import { Auth, Project, RateLimit, CreateProjectRequest, UpdateProjectRequest, CreateColumnRequest, Column } from './types';
 import { config } from 'dotenv';
+import { AspidaResponse } from 'aspida';
 import { AxiosResponse } from 'axios';
+import { ApiInstance } from 'apis/$api';
 config();
 
 export default abstract class GitHubProjects {
-  protected client: any; // TODO:FIX
+  protected client: ApiInstance;
   constructor(
     protected auth?: Auth
   ) {
@@ -87,7 +89,7 @@ export default abstract class GitHubProjects {
 
   public async deleteProject(
     projectId: number,
-  ): Promise<AxiosResponse> {
+  ): Promise<AspidaResponse<null, Record<string, string>>> {
     return await this.client
       .projects
       ._project_id(projectId)
