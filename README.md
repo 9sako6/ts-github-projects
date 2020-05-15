@@ -30,7 +30,7 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 
 ## columns
 
-- [ ] crate a column
+- [x] crate a column
 - [ ] get a column
 - [ ] list columns
 - [ ] update a column

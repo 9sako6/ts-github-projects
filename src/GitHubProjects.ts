@@ -171,6 +171,25 @@ export default abstract class GitHubProjects {
     }
   }
 
+
+  async createColumn(
+    projectId: number,
+    data: CreateColumnRequest
+  ): Promise<Column | undefined> {
+    try {
+      return await this.client
+        .projects
+        ._column_project_id(projectId)
+        .columns
+        .$post({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
   public async rateLimit(): Promise<RateLimit> {
     return await this.client
       .rate_limit

@@ -81,3 +81,5 @@ export type UpdateProjectRequest = Partial<{
   organization_permission: 'read' | 'write' | 'admin' | 'none';
   private: boolean;
 }>;
+
+export type CreateColumnRequest = { name: string; };

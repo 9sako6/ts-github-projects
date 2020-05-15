@@ -32,6 +32,11 @@ describe('testing a organization project', () => {
     expect(project?.name).toBe(updateData.name);
     expect(project?.body).toBe(updateData.body);
     expect(project?.state).toBe(updateData.state);
+    // create a column
+    const createColumnData = { name: 'new column for test' };
+    const newColumn = await gh.createColumn(projectId, createColumnData);
+    expect(newColumn).toBeDefined();
+    expect(newColumn?.name).toBe(createColumnData.name);
     // delete a project
     const res = await gh.deleteProject(projectId);
     expect(res.status).toBe(204);
