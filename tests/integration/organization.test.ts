@@ -10,8 +10,8 @@ describe('testing a organization project', () => {
     const createdProject = await gh.createOrganizationProject(
       '9sako6-playground',
       {
-        name: 'create_organization_project_integration_test',
-        body: 'test projcet'
+        name: `create_organization_project_integration_test_at_${Date.now()}`,
+        body: `test projcet ${Date.now()}`
       }
     );
     expect(createdProject).toBeDefined();
@@ -21,8 +21,8 @@ describe('testing a organization project', () => {
     expect(project).toBeDefined();
     // update a project
     const updateData: UpdateProjectRequest = {
-      name: 'updated_organization_project_integration_test',
-      body: 'test updated project',
+      name: `updated_organization_project_integration_test_at_${Date.now()}`,
+      body: `test updated project ${Date.now()}`,
       organization_permission: 'admin',
       state: 'open',
       private: false,
@@ -33,7 +33,7 @@ describe('testing a organization project', () => {
     expect(project?.body).toBe(updateData.body);
     expect(project?.state).toBe(updateData.state);
     // create a column
-    const createColumnData = { name: 'new column for test' };
+    const createColumnData = { name: `new column for test_at_${Date.now()}` };
     const newColumn = await gh.createColumn(projectId, createColumnData);
     expect(newColumn).toBeDefined();
     expect(newColumn?.name).toBe(createColumnData.name);
