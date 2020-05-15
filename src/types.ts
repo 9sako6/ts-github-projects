@@ -29,7 +29,7 @@ export type Project = {
   name: string,
   body: string,
   number: number,
-  state: string,
+  state: 'open' | 'close',
   creator: Creator,
   created_at: string,
   updated_at: string
@@ -61,3 +61,11 @@ export type CreateProjectRequest = {
   name: string;
   body?: string;
 }
+
+export type UpdateProjectRequest = Partial<{
+  name: string;
+  body: string;
+  state: 'open' | 'closed';
+  organization_permission: 'read' | 'write' | 'admin' | 'none';
+  private: boolean;
+}>

@@ -1,4 +1,5 @@
 import TsGitHubProjects from 'src/TsGitHubProjects';
+import { UpdateProjectRequest } from 'src/types';
 
 describe('testing a organization project', () => {
   it('create and get and delete a project', async () => {
@@ -16,8 +17,21 @@ describe('testing a organization project', () => {
     expect(createdProject).toBeDefined();
     // get a project
     const projectId = createdProject!.id!;
-    const project = await gh.getProject(projectId);
+    let project = await gh.getProject(projectId);
     expect(project).toBeDefined();
+    // update a project
+    const updateData: UpdateProjectRequest = {
+      name: 'updated_organization_project_integration_test',
+      body: 'test updated project',
+      organization_permission: 'admin',
+      state: 'open',
+      private: false,
+    };
+    project = await gh.updateProject(projectId, updateData);
+    expect(project).toBeDefined();
+    expect(project?.name).toBe(updateData.name);
+    expect(project?.body).toBe(updateData.body);
+    expect(project?.state).toBe(updateData.state);
     // delete a project
     const res = await gh.deleteProject(projectId);
     expect(res.status).toBe(204);

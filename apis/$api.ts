@@ -34,7 +34,11 @@ const api = <T>(client: AspidaClient<T>) => {
         delete: (option?: { config?: T }) =>
           client.fetch<void>(prefix, `/projects/${val1}`, 'DELETE', option).send(),
         $delete: async (option?: { config?: T }) =>
-          (await client.fetch<void>(prefix, `/projects/${val1}`, 'DELETE', option).send()).data
+          (await client.fetch<void>(prefix, `/projects/${val1}`, 'DELETE', option).send()).data,
+        patch: (option: { data: Methods1['patch']['reqBody'], config?: T }) =>
+          client.fetch<Methods1['patch']['resBody']>(prefix, `/projects/${val1}`, 'PATCH', option).json(),
+        $patch: async (option: { data: Methods1['patch']['reqBody'], config?: T }) =>
+          (await client.fetch<Methods1['patch']['resBody']>(prefix, `/projects/${val1}`, 'PATCH', option).json()).data
       })
     },
     rate_limit: {
