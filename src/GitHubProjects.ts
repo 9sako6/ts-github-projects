@@ -207,6 +207,23 @@ export default abstract class GitHubProjects {
     }
   }
 
+  public async listColumns(
+    projectId: number
+  ): Promise<Array<Column> | undefined> {
+    try {
+      return await this.client
+        .projects
+        ._column_project_id(projectId)
+        .columns
+        .$get()
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
   public async rateLimit(): Promise<RateLimit> {
     return await this.client
       .rate_limit
