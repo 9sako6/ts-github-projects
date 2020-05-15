@@ -10,21 +10,45 @@
 The library is built with [GitHub REST API v3](https://developer.github.com/v3/projects/)
 
 
-## features
+# features
 
-- [x] create a project
-  - [x] create a repository project
-  - [x] create an organization project
-  - [x] create a user project
-- [x] read a project
-  - [x] get a project
-  - [x] list repository's projects
-  - [x] list organization's projects
-  - [x] list user's projects
+## utilities
+
+- [x] rate limit
+
+## projects
+
+- [x] create a repository project
+- [x] create an organization project
+- [x] create a user project
+- [x] get a project
+- [x] list repository's projects
+- [x] list organization's projects
+- [x] list user's projects
 - [x] update a project
 - [x] delete a project
-- [ ] create a card
-- [ ] read a card
+
+## columns
+
+- [ ] crate a column
+- [ ] get a column
+- [ ] list columns
+- [ ] update a column
+- [ ] delete a column
+- [ ] move a column
+
+## cards
+
+- [ ] crate a card
+- [ ] get a card
+- [ ] list cards
 - [ ] update a card
 - [ ] delete a card
-- [x] rate limit
+- [ ] move a card
+
+## collaborators
+
+- [ ] list collaborators
+- [ ] review a user's permission level
+- [ ] add user as a collaborator
+- [ ] remove user as a collaborator
