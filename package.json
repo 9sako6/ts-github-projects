@@ -3,6 +3,7 @@
   "name": "ts-github-projects",
   "version": "0.0.5",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/9sako6/ts-github-projects",
   "repository": {
@@ -14,7 +15,9 @@
     "build": "npx webpack",
     "test": "jest",
     "lint": "npx eslint . --ext ts",
-    "lintfix": "npx eslint . --ext ts --fix"
+    "lintfix": "npx eslint . --ext ts --fix",
+    "npm:patch": "npm version patch",
+    "npm:publish": "npm publish"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",

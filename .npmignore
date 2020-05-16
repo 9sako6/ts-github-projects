@@ -9,3 +9,4 @@ coverage/
 jest.config.js
 tsconfig.json
 yarn-error.log
+.webpack.config.js
