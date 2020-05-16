@@ -8,4 +8,5 @@ export type Methods = {
     reqBody: UpdateColumnRequest;
     resBody: Column;
   }
+  delete: {}
 }
