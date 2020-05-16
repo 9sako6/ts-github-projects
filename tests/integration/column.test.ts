@@ -32,7 +32,7 @@ describe('testing column', () => {
     const updateColumnData = { name: `new_column_for_test_at_${Date.now()}` };
     column = await gh.updateColumn(column!.id, updateColumnData);
     expect(column).toBeDefined();
-    expect(column!.name).toEqual(updateColumnData.name);
+    expect(column?.name).toEqual(updateColumnData.name);
     // move a column
     const newColumn = await gh.createColumn(projectId, { name: 'column2' });
     let res = await gh.moveColumn(columnId, { position: `after:${newColumn?.id}` });
