@@ -1,5 +1,5 @@
-import TsGitHubProjects from 'src/TsGitHubProjects';
-import { UpdateProjectRequest } from 'src/types';
+import TsGitHubProjects from '../../src/TsGitHubProjects';
+import { UpdateProjectRequest } from '../../src/types';
 
 describe('testing a organization project', () => {
   it('create and get and update and delete a project', async () => {

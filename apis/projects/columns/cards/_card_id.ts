@@ -1,4 +1,4 @@
-import { Card, UpdateCardRequest } from 'src/types';
+import { Card, UpdateCardRequest } from '../../../../src/types';
 
 export type Methods = {
   get: {

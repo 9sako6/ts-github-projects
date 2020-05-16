@@ -16,7 +16,7 @@ import {
 } from './types';
 import { config } from 'dotenv';
 import { AspidaResponse } from 'aspida';
-import { ApiInstance } from 'apis/$api';
+import { ApiInstance } from '../apis/$api';
 config();
 
 export default abstract class GitHubProjects {

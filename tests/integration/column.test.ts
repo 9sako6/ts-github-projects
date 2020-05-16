@@ -1,4 +1,4 @@
-import TsGitHubProjects from 'src/TsGitHubProjects';
+import TsGitHubProjects from '../../src/TsGitHubProjects';
 
 describe('testing column', () => {
   it('create project, operate column', async () => {

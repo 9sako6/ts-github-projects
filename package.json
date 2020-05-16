@@ -1,7 +1,9 @@
 {
   "author": "9sako6",
   "name": "ts-github-projects",
-  "version": "0.0.1",
+  "version": "0.0.14",
+  "main": "./dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/9sako6/ts-github-projects",
   "repository": {
     "type": "git",
@@ -12,23 +14,29 @@
     "build": "tsc",
     "test": "jest",
     "lint": "npx eslint . --ext ts",
-    "lintfix": "npx eslint . --ext ts --fix"
+    "lintfix": "npx eslint . --ext ts --fix",
+    "npm:patch": "npm version patch",
+    "npm:publish": "npm publish"
   },
   "devDependencies": {
-    "@aspida/axios": "^0.5.2",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.5",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
-    "axios": "^0.19.2",
-    "dotenv": "^8.2.0",
     "eslint": "^7.0.0",
     "jest": "^26.0.1",
     "ts-jest": "^25.5.1",
+    "ts-loader": "^7.0.4",
     "ts-node": "^8.10.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@aspida/axios": "^0.5.2",
+    "dotenv": "^8.2.0",
+    "axios": "^0.19.2"
+  },
   "license": "MIT License",
   "keywords": []
 }

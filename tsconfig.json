@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "declaration": true,
+    "sourceMap": true,
+    "target": "es5",
     "module": "commonjs",
     "rootDir": "./",
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
+    // "baseUrl": "./",
     "outDir": "./dist",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["./**/*"]
+  "include": ["./apis/**/*.ts", "./src/**/*.ts"],
+  "exclude": ["**/*.test.ts"]
 }

@@ -1,4 +1,4 @@
-import TsGitHubProjects from 'src/TsGitHubProjects';
+import TsGitHubProjects from '../../src/TsGitHubProjects';
 
 describe('testing a repository project', () => {
   it('create and get and delete a project', async () => {

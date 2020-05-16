@@ -1,0 +1,12 @@
+.github/
+src/
+tests/
+apis/
+coverage/
+.editorconfig
+.env
+.eslintrc.json
+jest.config.js
+tsconfig.json
+yarn-error.log
+webpack.config.js

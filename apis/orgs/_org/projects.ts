@@ -1,4 +1,4 @@
-import { Project, CreateProjectRequest } from 'src/types';
+import { Project, CreateProjectRequest } from '../../../src/types';
 
 export type Methods = {
   get: {

@@ -1,9 +1,8 @@
-# ts-github-projects
-
-[![CI][github-actions-image]][github-actions-link]
-
-[github-actions-image]: https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg
-[github-actions-link]: https://github.com/9sako6/ts-github-projects/actions?query=workflow%3ACI
+<h1 align="center">ts-github-projects</h1>
+<p align="center">
+<a href="https://badge.fury.io/js/ts-github-projects"><img src="https://badge.fury.io/js/ts-github-projects.svg" alt="npm version" height="18"></a>
+<a href="https://github.com/9sako6/ts-github-projects/actions?query=workflow%3ACI"><img src="https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg" alt="CI" height="18"></a>
+</p>
 
 ## WIP
 

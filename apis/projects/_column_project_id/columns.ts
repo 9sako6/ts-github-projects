@@ -1,4 +1,4 @@
-import { Column, CreateColumnRequest } from 'src/types';
+import { Column, CreateColumnRequest } from '../../../src/types';
 
 export type Methods = {
   get: {
