@@ -107,3 +107,7 @@ export type UpdateCardRequest = Partial<{
   note: string;
   archived: boolean;
 }>;
+export type MoveCardRequest = {
+  position: string;
+  column_id: number;
+}

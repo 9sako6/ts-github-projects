@@ -12,6 +12,7 @@ import {
   Card,
   CreateCardRequest,
   UpdateCardRequest,
+  MoveCardRequest,
 } from './types';
 import { config } from 'dotenv';
 import { AspidaResponse } from 'aspida';
@@ -299,6 +300,16 @@ export default abstract class GitHubProjects {
       }
       throw err;
     }
+  }
+
+  protected async _moveCard(cardId: number, data: MoveCardRequest): Promise<AspidaResponse<null, Record<string, string>>> {
+    return await this.client
+      .projects
+      .columns
+      .cards
+      ._move_card_id(cardId)
+      .moves
+      .post({ data });
   }
 
   async deleteCard(cardId: number): Promise<AspidaResponse<null, Record<string, string>>> {

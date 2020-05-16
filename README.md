@@ -45,7 +45,7 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 - [x] list cards
 - [x] update a card
 - [x] delete a card
-- [ ] move a card
+- [x] move a card
 
 ## collaborators
 

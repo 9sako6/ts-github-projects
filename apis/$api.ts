@@ -7,10 +7,11 @@ import { Methods as Methods3 } from './projects/columns/_cards_column_id/cards'
 import { Methods as Methods4 } from './projects/columns/_column_id'
 import { Methods as Methods5 } from './projects/columns/_move_column_id/moves'
 import { Methods as Methods6 } from './projects/columns/cards/_card_id'
-import { Methods as Methods7 } from './rate_limit'
-import { Methods as Methods8 } from './repos/_owner/_repo/projects'
-import { Methods as Methods9 } from './user/projects'
-import { Methods as Methods10 } from './users/_username/projects'
+import { Methods as Methods7 } from './projects/columns/cards/_move_card_id/moves'
+import { Methods as Methods8 } from './rate_limit'
+import { Methods as Methods9 } from './repos/_owner/_repo/projects'
+import { Methods as Methods10 } from './user/projects'
+import { Methods as Methods11 } from './users/_username/projects'
 
 const api = <T>(client: AspidaClient<T>) => {
   const prefix = (client.baseURL === undefined ? '' : client.baseURL).replace(/\/$/, '')
@@ -106,47 +107,55 @@ const api = <T>(client: AspidaClient<T>) => {
               client.fetch<void>(prefix, `/projects/columns/cards/${val6}`, 'DELETE', option).send(),
             $delete: async (option?: { config?: T }) =>
               (await client.fetch<void>(prefix, `/projects/columns/cards/${val6}`, 'DELETE', option).send()).data
+          }),
+          _move_card_id: (val7: number | string) => ({
+            moves: {
+              post: (option: { data: Methods7['post']['reqBody'], config?: T }) =>
+                client.fetch<void>(prefix, `/projects/columns/cards/${val7}/moves`, 'POST', option).send(),
+              $post: async (option: { data: Methods7['post']['reqBody'], config?: T }) =>
+                (await client.fetch<void>(prefix, `/projects/columns/cards/${val7}/moves`, 'POST', option).send()).data
+            }
           })
         }
       }
     },
     rate_limit: {
       get: (option?: { config?: T }) =>
-        client.fetch<Methods7['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json(),
+        client.fetch<Methods8['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json(),
       $get: async (option?: { config?: T }) =>
-        (await client.fetch<Methods7['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json()).data
+        (await client.fetch<Methods8['get']['resBody']>(prefix, '/rate_limit', 'GET', option).json()).data
     },
     repos: {
-      _owner: (val7: number | string) => ({
-        _repo: (val8: number | string) => ({
+      _owner: (val8: number | string) => ({
+        _repo: (val9: number | string) => ({
           projects: {
             get: (option?: { config?: T }) =>
-              client.fetch<Methods8['get']['resBody']>(prefix, `/repos/${val7}/${val8}/projects`, 'GET', option).json(),
+              client.fetch<Methods9['get']['resBody']>(prefix, `/repos/${val8}/${val9}/projects`, 'GET', option).json(),
             $get: async (option?: { config?: T }) =>
-              (await client.fetch<Methods8['get']['resBody']>(prefix, `/repos/${val7}/${val8}/projects`, 'GET', option).json()).data,
-            post: (option: { data: Methods8['post']['reqBody'], config?: T }) =>
-              client.fetch<Methods8['post']['resBody']>(prefix, `/repos/${val7}/${val8}/projects`, 'POST', option).json(),
-            $post: async (option: { data: Methods8['post']['reqBody'], config?: T }) =>
-              (await client.fetch<Methods8['post']['resBody']>(prefix, `/repos/${val7}/${val8}/projects`, 'POST', option).json()).data
+              (await client.fetch<Methods9['get']['resBody']>(prefix, `/repos/${val8}/${val9}/projects`, 'GET', option).json()).data,
+            post: (option: { data: Methods9['post']['reqBody'], config?: T }) =>
+              client.fetch<Methods9['post']['resBody']>(prefix, `/repos/${val8}/${val9}/projects`, 'POST', option).json(),
+            $post: async (option: { data: Methods9['post']['reqBody'], config?: T }) =>
+              (await client.fetch<Methods9['post']['resBody']>(prefix, `/repos/${val8}/${val9}/projects`, 'POST', option).json()).data
           }
         })
       })
     },
     user: {
       projects: {
-        post: (option: { data: Methods9['post']['reqBody'], config?: T }) =>
-          client.fetch<Methods9['post']['resBody']>(prefix, '/user/projects', 'POST', option).json(),
-        $post: async (option: { data: Methods9['post']['reqBody'], config?: T }) =>
-          (await client.fetch<Methods9['post']['resBody']>(prefix, '/user/projects', 'POST', option).json()).data
+        post: (option: { data: Methods10['post']['reqBody'], config?: T }) =>
+          client.fetch<Methods10['post']['resBody']>(prefix, '/user/projects', 'POST', option).json(),
+        $post: async (option: { data: Methods10['post']['reqBody'], config?: T }) =>
+          (await client.fetch<Methods10['post']['resBody']>(prefix, '/user/projects', 'POST', option).json()).data
       }
     },
     users: {
-      _username: (val9: number | string) => ({
+      _username: (val10: number | string) => ({
         projects: {
           get: (option?: { config?: T }) =>
-            client.fetch<Methods10['get']['resBody']>(prefix, `/users/${val9}/projects`, 'GET', option).json(),
+            client.fetch<Methods11['get']['resBody']>(prefix, `/users/${val10}/projects`, 'GET', option).json(),
           $get: async (option?: { config?: T }) =>
-            (await client.fetch<Methods10['get']['resBody']>(prefix, `/users/${val9}/projects`, 'GET', option).json()).data
+            (await client.fetch<Methods11['get']['resBody']>(prefix, `/users/${val10}/projects`, 'GET', option).json()).data
         }
       })
     }

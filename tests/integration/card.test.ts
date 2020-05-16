@@ -39,8 +39,13 @@ describe('testing column', () => {
     expect(updatedCard).toBeDefined();
     expect(updatedCard?.note).toEqual(updateCardData.note);
     expect(updatedCard?.archived).toEqual(updateCardData.archived);
+    // move a card
+    const newCard1 = await gh.createCard(columnId, { note: 'card1' });
+    const newCard2 = await gh.createCard(columnId, { note: 'card2' });
+    let res = await gh.moveCard(columnId, newCard1!.id, newCard2!.id);
+    expect(res.status).toEqual(201);
     // delete a card
-    let res = await gh.deleteCard(cardId);
+    res = await gh.deleteCard(cardId);
     expect(res.status).toEqual(204);
     // delete a project
     res = await gh.deleteProject(projectId);
