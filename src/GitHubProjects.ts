@@ -11,6 +11,7 @@ import {
   MoveColumnRequest,
   Card,
   CreateCardRequest,
+  UpdateCardRequest,
 } from './types';
 import { config } from 'dotenv';
 import { AspidaResponse } from 'aspida';
@@ -225,6 +226,7 @@ export default abstract class GitHubProjects {
       ._column_id(columnId)
       .delete();
   }
+
   protected async _moveColumn(columnId: number, data: MoveColumnRequest): Promise<AspidaResponse<null, Record<string, string>>> {
     return await this.client
       .projects
@@ -281,6 +283,31 @@ export default abstract class GitHubProjects {
       }
       throw err;
     }
+  }
+
+  async updateCard(cardId: number, data: UpdateCardRequest): Promise<Card | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        .cards
+        ._card_id(cardId)
+        .$patch({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  async deleteCard(cardId: number): Promise<AspidaResponse<null, Record<string, string>>> {
+    return await this.client
+      .projects
+      .columns
+      .cards
+      ._card_id(cardId)
+      .delete();
   }
 
   async rateLimit(): Promise<RateLimit> {

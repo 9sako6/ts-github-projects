@@ -97,7 +97,15 @@ const api = <T>(client: AspidaClient<T>) => {
             get: (option?: { config?: T }) =>
               client.fetch<Methods6['get']['resBody']>(prefix, `/projects/columns/cards/${val6}`, 'GET', option).json(),
             $get: async (option?: { config?: T }) =>
-              (await client.fetch<Methods6['get']['resBody']>(prefix, `/projects/columns/cards/${val6}`, 'GET', option).json()).data
+              (await client.fetch<Methods6['get']['resBody']>(prefix, `/projects/columns/cards/${val6}`, 'GET', option).json()).data,
+            patch: (option: { data: Methods6['patch']['reqBody'], config?: T }) =>
+              client.fetch<Methods6['patch']['resBody']>(prefix, `/projects/columns/cards/${val6}`, 'PATCH', option).json(),
+            $patch: async (option: { data: Methods6['patch']['reqBody'], config?: T }) =>
+              (await client.fetch<Methods6['patch']['resBody']>(prefix, `/projects/columns/cards/${val6}`, 'PATCH', option).json()).data,
+            delete: (option?: { config?: T }) =>
+              client.fetch<void>(prefix, `/projects/columns/cards/${val6}`, 'DELETE', option).send(),
+            $delete: async (option?: { config?: T }) =>
+              (await client.fetch<void>(prefix, `/projects/columns/cards/${val6}`, 'DELETE', option).send()).data
           })
         }
       }

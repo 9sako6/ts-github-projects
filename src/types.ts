@@ -103,3 +103,7 @@ export type CreateCardRequest = {
   content_id: string;
   content_type: string;
 };
+export type UpdateCardRequest = Partial<{
+  note: string;
+  archived: boolean;
+}>;
