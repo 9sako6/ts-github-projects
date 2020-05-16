@@ -24,6 +24,11 @@ describe('testing column', () => {
     let card = await gh.createCard(columnId, createCardData1);
     expect(card).toBeDefined();
     expect(card?.note).toEqual(createCardData1.note);
+    // get a card
+    const cardId = card!.id;
+    card = await gh.getCard(cardId);
+    expect(card).toBeDefined();
+    expect(card?.note).toEqual(createCardData1.note);
     // delete a project
     const res = await gh.deleteProject(projectId);
     expect(res.status).toEqual(204);

@@ -290,6 +290,25 @@ export default abstract class GitHubProjects {
     }
   }
 
+
+  public async getCard(
+    cardId: number,
+  ): Promise<Card | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        .cards
+        ._card_id(cardId)
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
   public async rateLimit(): Promise<RateLimit> {
     return await this.client
       .rate_limit
