@@ -1,7 +1,7 @@
 {
   "author": "9sako6",
   "name": "ts-github-projects",
-  "version": "0.0.17",
+  "version": "0.0.23",
   "main": "./dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/9sako6/ts-github-projects",
@@ -16,7 +16,7 @@
     "lint": "npx eslint . --ext ts",
     "lintfix": "npx eslint . --ext ts --fix",
     "npm:patch": "npm version patch",
-    "npm:publish": "npm publish"
+    "prepare": "rm -rf dist && yarn build && yarn test"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
@@ -28,12 +28,12 @@
     "ts-github-projects": "^0.0.14",
     "ts-jest": "^25.5.1",
     "ts-node": "^8.10.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "dotenv": "^8.2.0"
   },
   "dependencies": {
     "@aspida/axios": "^0.5.2",
-    "axios": "^0.19.2",
-    "dotenv": "^8.2.0"
+    "axios": "^0.19.2"
   },
   "license": "MIT License",
   "keywords": []

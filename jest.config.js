@@ -14,4 +14,7 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
   testTimeout: 10000,
+  setupFiles: [
+    "dotenv/config"
+  ]
 };
