@@ -4,5 +4,5 @@ export type Methods = {
   post: {
     reqBody: CreateProjectRequest;
     resBody: Project;
-  }
-}
+  };
+};

@@ -1,17 +1,17 @@
 module.exports = {
   roots: [
-    "./"
+    "./",
   ],
   testMatch: [
     "**/tests/**/*.+(ts|tsx|js)",
-    "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    "**/?(*.)+(spec|test).+(ts|tsx|js)",
   ],
   moduleDirectories: [
     "./",
-    "node_modules"
+    "node_modules",
   ],
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  testTimeout: 8000,
-}
+  testTimeout: 10000,
+};

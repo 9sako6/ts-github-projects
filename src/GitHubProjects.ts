@@ -9,6 +9,10 @@ import {
   CreateColumnRequest,
   UpdateColumnRequest,
   MoveColumnRequest,
+  Card,
+  CreateCardRequest,
+  UpdateCardRequest,
+  MoveCardRequest,
 } from './types';
 import { config } from 'dotenv';
 import { AspidaResponse } from 'aspida';
@@ -17,9 +21,7 @@ config();
 
 export default abstract class GitHubProjects {
   protected client: ApiInstance;
-  constructor(
-    protected auth?: Auth
-  ) {
+  constructor(protected auth?: Auth) {
     let headers = undefined;
     if (this.auth && this.auth.token) {
       headers = { Authorization: `token ${this.auth.token}` };
@@ -27,10 +29,7 @@ export default abstract class GitHubProjects {
     this.client = makeClient(headers);
   }
 
-  public async listRepositoryProjects(
-    owner: string,
-    repository: string
-  ): Promise<Array<Project> | undefined> {
+  async listRepositoryProjects(owner: string, repository: string): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .repos
@@ -46,9 +45,7 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async listOrganizationProjects(
-    organization: string,
-  ): Promise<Array<Project> | undefined> {
+  async listOrganizationProjects(organization: string): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .orgs
@@ -63,9 +60,7 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async listUserProjects(
-    username: string,
-  ): Promise<Array<Project> | undefined> {
+  async listUserProjects(username: string): Promise<Array<Project> | undefined> {
     try {
       return await this.client
         .users
@@ -80,9 +75,7 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async getProject(
-    projectId: number,
-  ): Promise<Project | undefined> {
+  async getProject(projectId: number): Promise<Project | undefined> {
     try {
       return await this.client
         .projects
@@ -96,20 +89,14 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async deleteProject(
-    projectId: number,
-  ): Promise<AspidaResponse<null, Record<string, string>>> {
+  async deleteProject(projectId: number): Promise<AspidaResponse<null, Record<string, string>>> {
     return await this.client
       .projects
       ._project_id(projectId)
       .delete();
   }
 
-  public async createRepositoryProject(
-    owner: string,
-    repository: string,
-    data: CreateProjectRequest
-  ): Promise<Project | undefined> {
+  async createRepositoryProject(owner: string, repository: string, data: CreateProjectRequest): Promise<Project | undefined> {
     try {
       return await this.client
         .repos
@@ -125,10 +112,7 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async createOrganizationProject(
-    organization: string,
-    data: CreateProjectRequest
-  ): Promise<Project | undefined> {
+  async createOrganizationProject(organization: string, data: CreateProjectRequest): Promise<Project | undefined> {
     try {
       return await this.client
         .orgs
@@ -143,9 +127,7 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async createUserProject(
-    data: CreateProjectRequest
-  ): Promise<Project | undefined> {
+  async createUserProject(data: CreateProjectRequest): Promise<Project | undefined> {
     try {
       return await this.client
         .user
@@ -163,10 +145,7 @@ export default abstract class GitHubProjects {
    * Note: Updating a project's organization_permission requires admin access to the project.
    * @param data 
    */
-  public async updateProject(
-    projectId: number,
-    data: UpdateProjectRequest
-  ): Promise<Project | undefined> {
+  async updateProject(projectId: number, data: UpdateProjectRequest): Promise<Project | undefined> {
     try {
       return await this.client
         .projects
@@ -181,10 +160,7 @@ export default abstract class GitHubProjects {
   }
 
 
-  async createColumn(
-    projectId: number,
-    data: CreateColumnRequest
-  ): Promise<Column | undefined> {
+  async createColumn(projectId: number, data: CreateColumnRequest): Promise<Column | undefined> {
     try {
       return await this.client
         .projects
@@ -199,9 +175,7 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async getColumn(
-    columnId: number,
-  ): Promise<Column | undefined> {
+  async getColumn(columnId: number): Promise<Column | undefined> {
     try {
       return await this.client
         .projects
@@ -216,9 +190,7 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async listColumns(
-    projectId: number
-  ): Promise<Array<Column> | undefined> {
+  async listColumns(projectId: number): Promise<Array<Column> | undefined> {
     try {
       return await this.client
         .projects
@@ -233,10 +205,7 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async updateColumn(
-    columnId: number,
-    data: UpdateColumnRequest
-  ): Promise<Column | undefined> {
+  async updateColumn(columnId: number, data: UpdateColumnRequest): Promise<Column | undefined> {
     try {
       return await this.client
         .projects
@@ -251,19 +220,15 @@ export default abstract class GitHubProjects {
     }
   }
 
-  public async deleteColumn(
-    columnId: number,
-  ): Promise<AspidaResponse<null, Record<string, string>>> {
+  async deleteColumn(columnId: number): Promise<AspidaResponse<null, Record<string, string>>> {
     return await this.client
       .projects
       .columns
       ._column_id(columnId)
       .delete();
   }
-  public async moveColumn(
-    columnId: number,
-    data: MoveColumnRequest
-  ): Promise<AspidaResponse<null, Record<string, string>>> {
+
+  protected async _moveColumn(columnId: number, data: MoveColumnRequest): Promise<AspidaResponse<null, Record<string, string>>> {
     return await this.client
       .projects
       .columns
@@ -272,7 +237,91 @@ export default abstract class GitHubProjects {
       .post({ data });
   }
 
-  public async rateLimit(): Promise<RateLimit> {
+  async createCard(columnId: number, data: CreateCardRequest): Promise<Card | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        ._cards_column_id(columnId)
+        .cards
+        .$post({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+
+  async getCard(cardId: number): Promise<Card | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        .cards
+        ._card_id(cardId)
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  async listCards(columnId: number): Promise<Array<Card> | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        ._cards_column_id(columnId)
+        .cards
+        .$get();
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  async updateCard(cardId: number, data: UpdateCardRequest): Promise<Card | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        .cards
+        ._card_id(cardId)
+        .$patch({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  protected async _moveCard(cardId: number, data: MoveCardRequest): Promise<AspidaResponse<null, Record<string, string>>> {
+    return await this.client
+      .projects
+      .columns
+      .cards
+      ._move_card_id(cardId)
+      .moves
+      .post({ data });
+  }
+
+  async deleteCard(cardId: number): Promise<AspidaResponse<null, Record<string, string>>> {
+    return await this.client
+      .projects
+      .columns
+      .cards
+      ._card_id(cardId)
+      .delete();
+  }
+
+  async rateLimit(): Promise<RateLimit> {
     return await this.client
       .rate_limit
       .$get();

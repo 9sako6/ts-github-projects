@@ -2,13 +2,12 @@
 
 [![CI][github-actions-image]][github-actions-link]
 
-[github-actions-image]:https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg
-[github-actions-link]:https://github.com/9sako6/ts-github-projects/actions?query=workflow%3ACI
+[github-actions-image]: https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg
+[github-actions-link]: https://github.com/9sako6/ts-github-projects/actions?query=workflow%3ACI
 
 ## WIP
 
 The library is built with [GitHub REST API v3](https://developer.github.com/v3/projects/)
-
 
 # features
 
@@ -39,12 +38,14 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 
 ## cards
 
-- [ ] crate a card
-- [ ] get a card
-- [ ] list cards
-- [ ] update a card
-- [ ] delete a card
-- [ ] move a card
+- [x] crate a card
+  - [ ] associate with issue
+  - [ ] associate with pull request
+- [x] get a card
+- [x] list cards
+- [x] update a card
+- [x] delete a card
+- [x] move a card
 
 ## collaborators
 

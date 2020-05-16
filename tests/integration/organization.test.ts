@@ -2,7 +2,7 @@ import TsGitHubProjects from 'src/TsGitHubProjects';
 import { UpdateProjectRequest } from 'src/types';
 
 describe('testing a organization project', () => {
-  it('create and get and delete a project', async () => {
+  it('create and get and update and delete a project', async () => {
     // authorization
     expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
     const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
