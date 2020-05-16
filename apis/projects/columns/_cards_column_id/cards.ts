@@ -1,4 +1,4 @@
-import { CreateCardRequest, Card } from 'src/types';
+import { CreateCardRequest, Card } from '../../../../src/types';
 
 export type Methods = {
   get: {

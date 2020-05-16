@@ -1,6 +1,6 @@
 import axios from 'axios';
 import aspida from '@aspida/axios';
-import api, { ApiInstance } from 'apis/$api';
+import api, { ApiInstance } from '../apis/$api';
 
 type Headers = {
   Accept: string;

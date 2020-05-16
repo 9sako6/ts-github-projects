@@ -1,9 +1,8 @@
 {
   "author": "9sako6",
   "name": "ts-github-projects",
-  "version": "0.0.11",
-  "main": "./dist/index.js",
-  "module": "dist/index.js",
+  "version": "0.0.12",
+  "main": "./dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/9sako6/ts-github-projects",
   "repository": {
@@ -12,7 +11,7 @@
   },
   "scripts": {
     "api:build": "./node_modules/.bin/aspida --build",
-    "build": "npx webpack",
+    "build": "tsc",
     "test": "jest",
     "lint": "npx eslint . --ext ts",
     "lintfix": "npx eslint . --ext ts --fix",

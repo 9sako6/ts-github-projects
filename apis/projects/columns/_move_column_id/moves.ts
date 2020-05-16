@@ -1,4 +1,4 @@
-import { MoveColumnRequest } from 'src/types';
+import { MoveColumnRequest } from '../../../../src/types';
 
 export type Methods = {
   post: {
