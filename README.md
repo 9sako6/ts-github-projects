@@ -39,7 +39,9 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 
 ## cards
 
-- [ ] crate a card
+- [x] crate a card
+  - [ ] associate with issue
+  - [ ] associate with pull request
 - [ ] get a card
 - [ ] list cards
 - [ ] update a card

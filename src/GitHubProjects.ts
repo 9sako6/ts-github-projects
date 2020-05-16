@@ -9,6 +9,8 @@ import {
   CreateColumnRequest,
   UpdateColumnRequest,
   MoveColumnRequest,
+  Card,
+  CreateCardRequest,
 } from './types';
 import { config } from 'dotenv';
 import { AspidaResponse } from 'aspida';
@@ -270,6 +272,22 @@ export default abstract class GitHubProjects {
       ._move_column_id(columnId)
       .moves
       .post({ data });
+  }
+
+  public async createCard(columnId: number, data: CreateCardRequest): Promise<Card | undefined> {
+    try {
+      return await this.client
+        .projects
+        .columns
+        ._cards_column_id(columnId)
+        .cards
+        .$post({ data });
+    } catch (err) {
+      if (err.code === 404) {
+        return undefined;
+      }
+      throw err;
+    }
   }
 
   public async rateLimit(): Promise<RateLimit> {

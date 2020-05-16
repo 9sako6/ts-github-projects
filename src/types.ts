@@ -47,6 +47,18 @@ export interface Column extends Timestamp {
   name: string;
 }
 
+export interface Card extends Timestamp {
+  url: string;
+  id: number;
+  node_id: string;
+  note: string;
+  creator: Creator;
+  archived: boolean;
+  column_url: string;
+  content_url: string;
+  project_url: string;
+}
+
 // export type Auth = {
 //   username: string;
 //   password: string;
@@ -84,6 +96,10 @@ export type UpdateProjectRequest = Partial<{
 
 export type CreateColumnRequest = { name: string; };
 export type UpdateColumnRequest = { name: string; };
-
-
-export type MoveColumnRequest = { position: string };
+export type MoveColumnRequest = { position: string; };
+export type CreateCardRequest = {
+  note?: string;
+} | {
+  content_id: string;
+  content_type: string;
+};
