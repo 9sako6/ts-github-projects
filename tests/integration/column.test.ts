@@ -35,7 +35,7 @@ describe('testing column', () => {
     expect(column?.name).toEqual(updateColumnData.name);
     // move a column
     const newColumn = await gh.createColumn(projectId, { name: 'column2' });
-    let res = await gh.moveColumn(columnId, { position: `after:${newColumn?.id}` });
+    let res = await gh.moveColumn(columnId, newColumn!.id);
     expect(res.status).toEqual(201);
     // delete a column
     const resDeleteColumn = await gh.deleteColumn(columnId);
