@@ -1,0 +1,11 @@
+import TsGitHubProjects from 'ts-github-projects';
+
+const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
+
+async function demo() {
+  // rate limit
+  const info = await gh.rateLimit();
+  console.log(info);
+}
+
+demo();
