@@ -73,13 +73,13 @@ I recommend you to use OAuth.
 
 1. Create a personal access token ([Creating a personal access token for the command line - GitHub Help](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line))
 
-1. make `.env` file in the root directory of your project and set token. For example:
+1. Make `.env` file in the root directory of your project and set the token. For example:
 
    ```
    PERSONAL_ACCESS_TOKEN=<personal_access_token>
    ```
 
-1. you can access it with `process.env.PERSONAL_ACCESS_TOKEN` ([motdotla/dotenv](https://github.com/motdotla/dotenv))
+1. You can access it with `process.env.PERSONAL_ACCESS_TOKEN` ([motdotla/dotenv](https://github.com/motdotla/dotenv))
 
    ```typescript
    import TsGitHubProjects from "ts-github-projects";
@@ -89,9 +89,9 @@ I recommend you to use OAuth.
    });
    ```
 
-1. don't forget to add `.env` to your `.gitignore` file.
+1. Don't forget to add `.env` to your `.gitignore` file.
 
-# Examples
+## Examples
 
 ```typescript
 import TsGitHubProjects from "ts-github-projects";
@@ -100,11 +100,13 @@ const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
 
 // list projects
 const projectsList = await gh.listUserProjects("username");
+
 // create a project
 const project = await gh.createUserProject({
   name: "My ToDo List",
   body: "description of the project",
 });
+
 // create a column
 const column = await gh.createColumn(project?.id, {
   name: "ToDo",
