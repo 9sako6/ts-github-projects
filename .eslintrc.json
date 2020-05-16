@@ -18,5 +18,6 @@
     "semi": "error",
     "ImportDeclaration": "off",
     "no-unused-vars": "off"
-  }
+  },
+  "ignorePatterns": ["dist/*"]
 }

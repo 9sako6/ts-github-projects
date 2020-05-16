@@ -2,7 +2,7 @@
   "author": "9sako6",
   "name": "ts-github-projects",
   "version": "0.0.3",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/9sako6/ts-github-projects",
   "repository": {
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "api:build": "./node_modules/.bin/aspida --build",
-    "build": "tsc",
+    "build": "npx webpack",
     "test": "jest",
     "lint": "npx eslint . --ext ts",
     "lintfix": "npx eslint . --ext ts --fix"
@@ -25,8 +25,11 @@
     "eslint": "^7.0.0",
     "jest": "^26.0.1",
     "ts-jest": "^25.5.1",
+    "ts-loader": "^7.0.4",
     "ts-node": "^8.10.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
     "@aspida/axios": "^0.5.2",
