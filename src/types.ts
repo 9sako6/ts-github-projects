@@ -59,10 +59,6 @@ export interface Card extends Timestamp {
   project_url: string;
 }
 
-// export type Auth = {
-//   username: string;
-//   password: string;
-// } | { token: string; }
 export type Auth = { token: string; }
 
 type RateLimitAttributes = {

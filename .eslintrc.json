@@ -19,5 +19,5 @@
     "ImportDeclaration": "off",
     "no-unused-vars": "off"
   },
-  "ignorePatterns": ["dist/*"]
+  "ignorePatterns": ["dist/*", "sample/*", "tests/*"]
 }
