@@ -35,7 +35,7 @@ The library is built with [GitHub REST API v3](https://developer.github.com/v3/p
 - [x] list columns
 - [x] update a column
 - [x] delete a column
-- [ ] move a column
+- [x] move a column
 
 ## cards
 

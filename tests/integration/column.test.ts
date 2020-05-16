@@ -1,7 +1,7 @@
 import TsGitHubProjects from 'src/TsGitHubProjects';
 
 describe('testing column', () => {
-  it('create project, crate and get and list and update and delete column', async () => {
+  it('create project, operate column', async () => {
     // authorization
     expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
     const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
@@ -33,11 +33,15 @@ describe('testing column', () => {
     column = await gh.updateColumn(column!.id, updateColumnData);
     expect(column).toBeDefined();
     expect(column!.name).toEqual(updateColumnData.name);
+    // move a column
+    const newColumn = await gh.createColumn(projectId, { name: 'column2' });
+    let res = await gh.moveColumn(columnId, { position: `after:${newColumn?.id}` });
+    expect(res.status).toEqual(201);
     // delete a column
     const resDeleteColumn = await gh.deleteColumn(columnId);
     expect(resDeleteColumn.status).toEqual(204);
     // delete a project
-    const res = await gh.deleteProject(projectId);
+    res = await gh.deleteProject(projectId);
     expect(res.status).toEqual(204);
   });
 });

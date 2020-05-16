@@ -8,6 +8,7 @@ import {
   UpdateProjectRequest,
   CreateColumnRequest,
   UpdateColumnRequest,
+  MoveColumnRequest,
 } from './types';
 import { config } from 'dotenv';
 import { AspidaResponse } from 'aspida';
@@ -258,6 +259,17 @@ export default abstract class GitHubProjects {
       .columns
       ._column_id(columnId)
       .delete();
+  }
+  public async moveColumn(
+    columnId: number,
+    data: MoveColumnRequest
+  ): Promise<AspidaResponse<null, Record<string, string>>> {
+    return await this.client
+      .projects
+      .columns
+      ._move_column_id(columnId)
+      .moves
+      .post({ data });
   }
 
   public async rateLimit(): Promise<RateLimit> {
