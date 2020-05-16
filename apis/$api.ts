@@ -60,6 +60,10 @@ const api = <T>(client: AspidaClient<T>) => {
       columns: {
         _cards_column_id: (val3: number | string) => ({
           cards: {
+            get: (option?: { config?: T }) =>
+              client.fetch<Methods3['get']['resBody']>(prefix, `/projects/columns/${val3}/cards`, 'GET', option).json(),
+            $get: async (option?: { config?: T }) =>
+              (await client.fetch<Methods3['get']['resBody']>(prefix, `/projects/columns/${val3}/cards`, 'GET', option).json()).data,
             post: (option: { data: Methods3['post']['reqBody'], config?: T }) =>
               client.fetch<Methods3['post']['resBody']>(prefix, `/projects/columns/${val3}/cards`, 'POST', option).json(),
             $post: async (option: { data: Methods3['post']['reqBody'], config?: T }) =>

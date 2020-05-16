@@ -24,6 +24,10 @@ describe('testing column', () => {
     let card = await gh.createCard(columnId, createCardData1);
     expect(card).toBeDefined();
     expect(card?.note).toEqual(createCardData1.note);
+    // list cards
+    const cards = await gh.listCards(columnId);
+    expect(cards).toBeDefined();
+    expect(cards![0]).toEqual(card);
     // get a card
     const cardId = card!.id;
     card = await gh.getCard(cardId);
