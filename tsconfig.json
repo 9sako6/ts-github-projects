@@ -3,15 +3,11 @@
     "declaration": true,
     "sourceMap": true,
     "target": "es2019",
-    "module": "umd",
-    "moduleResolution": "node",
+    "module": "commonjs",
     "rootDir": "./",
     "strict": true,
-    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
   "include": ["./apis/**/*.ts", "./src/**/*.ts"],
   "exclude": ["**/*.test.ts"]
