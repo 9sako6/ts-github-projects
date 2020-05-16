@@ -7,7 +7,6 @@
     "rootDir": "./",
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    // "baseUrl": "./",
     "outDir": "./dist",
     "esModuleInterop": true,
   },
