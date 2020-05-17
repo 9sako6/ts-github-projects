@@ -9,6 +9,20 @@ describe('testing', () => {
       expect(data).toBeDefined();
     });
 
+    it('list all valid repository\'s projects', async () => {
+      expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
+      const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
+      const data = await gh.listRepositoryProjects('9sako6', 'ts-github-projects', 'all');
+      expect(data).toBeDefined();
+    });
+
+    it('list all closed repository\'s projects', async () => {
+      expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
+      const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
+      const data = await gh.listRepositoryProjects('9sako6', 'ts-github-projects', 'closed');
+      expect(data).toBeDefined();
+    });
+
     it('list valid organization\'s projects', async () => {
       const gh = new TsGitHubProjects();
       const data = await gh.listOrganizationProjects('9sako6-playground');

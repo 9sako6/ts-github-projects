@@ -1,7 +1,8 @@
-import { Project, CreateProjectRequest } from '../../../../src/types';
+import { Project, CreateProjectRequest, ListProjectsRequest } from '../../../../src/types';
 
 export type Methods = {
   get: {
+    reqBody: ListProjectsRequest;
     resBody: Array<Project>;
   };
 
