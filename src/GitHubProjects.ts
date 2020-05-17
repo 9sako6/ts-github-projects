@@ -4,6 +4,7 @@ import {
   RateLimit,
   Project,
   Column,
+  ArchivedStatus,
   CreateProjectRequest,
   UpdateProjectRequest,
   CreateColumnRequest,
@@ -187,13 +188,13 @@ export default abstract class GitHubProjects {
       .catch(err => { throw err; });
   }
 
-  async listCards(columnId: number): Promise<Array<Card>> {
+  async listCards(columnId: number, archived_state: ArchivedStatus = 'not_archived'): Promise<Array<Card>> {
     return await this.client
       .projects
       .columns
       ._cards_column_id(columnId)
       .cards
-      .$get()
+      .$get({ query: { archived_state } })
       .catch(err => { throw err; });
   }
 
