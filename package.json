@@ -1,8 +1,8 @@
 {
   "author": "9sako6",
   "name": "ts-github-projects",
-  "version": "0.0.23",
-  "main": "./dist/src/index.js",
+  "version": "0.0.30",
+  "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/9sako6/ts-github-projects",
   "repository": {
@@ -31,6 +31,9 @@
     "typescript": "^3.8.3",
     "dotenv": "^8.2.0"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@aspida/axios": "^0.5.2",
     "axios": "^0.19.2"

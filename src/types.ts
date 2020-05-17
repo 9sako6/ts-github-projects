@@ -90,9 +90,14 @@ export type UpdateProjectRequest = Partial<{
   private: boolean;
 }>;
 
+export type ListProjectsRequest = { state: 'open' | 'closed' | 'all' };
+
 export type CreateColumnRequest = { name: string; };
+
 export type UpdateColumnRequest = { name: string; };
+
 export type MoveColumnRequest = { position: string; };
+
 export type CreateCardRequest = {
   note?: string;
 } | {

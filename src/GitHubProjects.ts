@@ -27,48 +27,39 @@ export default abstract class GitHubProjects {
     this.client = makeClient(headers);
   }
 
-  async listRepositoryProjects(owner: string, repository: string): Promise<Array<Project> | undefined> {
+  async listRepositoryProjects(owner: string, repository: string, state: 'open' | 'closed' | 'all' = 'open'): Promise<Array<Project>> {
     try {
       return await this.client
         .repos
         ._owner(owner)
         ._repo(repository)
         .projects
-        .$get();
+        .$get({ query: { state } });
     } catch (err) {
-      if (err.code === 404) {
-        return undefined;
-      }
       throw err;
     }
   }
 
-  async listOrganizationProjects(organization: string): Promise<Array<Project> | undefined> {
+  async listOrganizationProjects(organization: string, state: 'open' | 'closed' | 'all' = 'open'): Promise<Array<Project>> {
     try {
       return await this.client
         .orgs
         ._org(organization)
         .projects
-        .$get();
+        .$get({ query: { state } });
     } catch (err) {
-      if (err.code === 404) {
-        return undefined;
-      }
       throw err;
     }
   }
 
-  async listUserProjects(username: string): Promise<Array<Project> | undefined> {
+  async listUserProjects(username: string, state: 'open' | 'closed' | 'all' = 'open'): Promise<Array<Project>> {
     try {
       return await this.client
         .users
         ._username(username)
         .projects
-        .$get();
+        .$get({ query: { state } });
     } catch (err) {
-      if (err.code === 404) {
-        return undefined;
-      }
       throw err;
     }
   }
