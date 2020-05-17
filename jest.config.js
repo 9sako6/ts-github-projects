@@ -13,7 +13,7 @@ module.exports = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  testTimeout: 10000,
+  testTimeout: 30000,
   setupFiles: [
     "dotenv/config"
   ]

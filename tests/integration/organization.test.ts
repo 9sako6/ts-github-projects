@@ -1,5 +1,6 @@
 import TsGitHubProjects from '../../src/TsGitHubProjects';
 import { UpdateProjectRequest } from '../../src/types';
+import { setupAndCreateOrgProject } from '../../src/testHelper';
 
 describe('testing a organization project', () => {
   it('create and get and update and delete a project', async () => {
@@ -40,15 +41,7 @@ describe('testing a organization project', () => {
   it('closed project', async () => {
     // authorization
     expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
-    const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
-    // create a project
-    const project = await gh.createOrganizationProject(
-      '9sako6-playground',
-      {
-        name: `create_organization_project_integration_test_at_${Date.now()}`,
-        body: `test projcet ${Date.now()}`
-      }
-    );
+    const [gh, project] = await setupAndCreateOrgProject()
     expect(project).toBeDefined();
     const beforeNum = (await gh.listOrganizationProjects('9sako6-playground', 'closed')).length;
     // update to close
@@ -56,6 +49,7 @@ describe('testing a organization project', () => {
     const afterNum = (await gh.listOrganizationProjects('9sako6-playground', 'closed')).length;
     expect(afterNum - beforeNum).toEqual(1);
     // delete the project
-    await gh.deleteProject(project.id);
+    const res = await gh.deleteProject(project.id);
+    expect(res.status).toEqual(204);
   });
 });

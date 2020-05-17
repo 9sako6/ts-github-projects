@@ -1,4 +1,5 @@
 import TsGitHubProjects from '../../src/TsGitHubProjects';
+import { setupAndCreateOrgProject } from '../../src/testHelper';
 
 describe('testing column', () => {
   it('create project, operate column', async () => {
@@ -51,4 +52,18 @@ describe('testing column', () => {
     res = await gh.deleteProject(projectId);
     expect(res.status).toEqual(204);
   });
+
+  it('archived card', async () => {
+    const [gh, project] = await setupAndCreateOrgProject();
+    expect(project).toBeDefined();
+    const column = await gh.createColumn(project.id, { name: 'has archived cards' });
+    const card = await gh.createCard(column.id, { note: 'archived card' })
+    const beforeNum = (await gh.listCards(column.id, 'archived')).length;
+    await gh.updateCard(card.id, { archived: true });
+    const afterNum = (await gh.listCards(column.id, 'archived')).length;
+    expect(afterNum - beforeNum).toEqual(1);
+    // delete a project
+    const res = await gh.deleteProject(project.id);
+    expect(res.status).toEqual(204);
+  })
 });
