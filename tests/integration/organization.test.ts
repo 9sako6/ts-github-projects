@@ -36,4 +36,26 @@ describe('testing a organization project', () => {
     const res = await gh.deleteProject(projectId);
     expect(res.status).toEqual(204);
   });
+
+  it('closed project', async () => {
+    // authorization
+    expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
+    const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
+    // create a project
+    const project = await gh.createOrganizationProject(
+      '9sako6-playground',
+      {
+        name: `create_organization_project_integration_test_at_${Date.now()}`,
+        body: `test projcet ${Date.now()}`
+      }
+    );
+    expect(project).toBeDefined();
+    const beforeNum = (await gh.listOrganizationProjects('9sako6-playground', 'closed')).length;
+    // update to close
+    await gh.updateProject(project.id, { state: 'closed' });
+    const afterNum = (await gh.listOrganizationProjects('9sako6-playground', 'closed')).length;
+    expect(afterNum - beforeNum).toEqual(1);
+    // delete the project
+    await gh.deleteProject(project.id);
+  });
 });
