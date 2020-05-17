@@ -20,9 +20,9 @@ const api = <T>(client: AspidaClient<T>) => {
     orgs: {
       _org: (val0: number | string) => ({
         projects: {
-          get: (option: { data: Methods0['get']['reqBody'], config?: T }) =>
+          get: (option?: { query?: Methods0['get']['query'], config?: T }) =>
             client.fetch<Methods0['get']['resBody']>(prefix, `/orgs/${val0}/projects`, 'GET', option).json(),
-          $get: async (option: { data: Methods0['get']['reqBody'], config?: T }) =>
+          $get: async (option?: { query?: Methods0['get']['query'], config?: T }) =>
             (await client.fetch<Methods0['get']['resBody']>(prefix, `/orgs/${val0}/projects`, 'GET', option).json()).data,
           post: (option: { data: Methods0['post']['reqBody'], config?: T }) =>
             client.fetch<Methods0['post']['resBody']>(prefix, `/orgs/${val0}/projects`, 'POST', option).json(),
@@ -129,9 +129,9 @@ const api = <T>(client: AspidaClient<T>) => {
       _owner: (val8: number | string) => ({
         _repo: (val9: number | string) => ({
           projects: {
-            get: (option: { data: Methods9['get']['reqBody'], config?: T }) =>
+            get: (option?: { query?: Methods9['get']['query'], config?: T }) =>
               client.fetch<Methods9['get']['resBody']>(prefix, `/repos/${val8}/${val9}/projects`, 'GET', option).json(),
-            $get: async (option: { data: Methods9['get']['reqBody'], config?: T }) =>
+            $get: async (option?: { query?: Methods9['get']['query'], config?: T }) =>
               (await client.fetch<Methods9['get']['resBody']>(prefix, `/repos/${val8}/${val9}/projects`, 'GET', option).json()).data,
             post: (option: { data: Methods9['post']['reqBody'], config?: T }) =>
               client.fetch<Methods9['post']['resBody']>(prefix, `/repos/${val8}/${val9}/projects`, 'POST', option).json(),
@@ -152,9 +152,9 @@ const api = <T>(client: AspidaClient<T>) => {
     users: {
       _username: (val10: number | string) => ({
         projects: {
-          get: (option: { data: Methods11['get']['reqBody'], config?: T }) =>
+          get: (option?: { query?: Methods11['get']['query'], config?: T }) =>
             client.fetch<Methods11['get']['resBody']>(prefix, `/users/${val10}/projects`, 'GET', option).json(),
-          $get: async (option: { data: Methods11['get']['reqBody'], config?: T }) =>
+          $get: async (option?: { query?: Methods11['get']['query'], config?: T }) =>
             (await client.fetch<Methods11['get']['resBody']>(prefix, `/users/${val10}/projects`, 'GET', option).json()).data
         }
       })

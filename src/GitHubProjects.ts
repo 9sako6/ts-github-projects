@@ -34,7 +34,7 @@ export default abstract class GitHubProjects {
         ._owner(owner)
         ._repo(repository)
         .projects
-        .$get({ data: { state } });
+        .$get({ query: { state } });
     } catch (err) {
       throw err;
     }
@@ -46,7 +46,7 @@ export default abstract class GitHubProjects {
         .orgs
         ._org(organization)
         .projects
-        .$get({ data: { state } });
+        .$get({ query: { state } });
     } catch (err) {
       throw err;
     }
@@ -58,7 +58,7 @@ export default abstract class GitHubProjects {
         .users
         ._username(username)
         .projects
-        .$get({ data: { state } });
+        .$get({ query: { state } });
     } catch (err) {
       throw err;
     }

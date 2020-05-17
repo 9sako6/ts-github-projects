@@ -2,7 +2,7 @@ import { Project, CreateProjectRequest, ListProjectsRequest } from '../../../src
 
 export type Methods = {
   get: {
-    reqBody: ListProjectsRequest;
+    query?: ListProjectsRequest;
     resBody: Array<Project>;
   };
   post: {

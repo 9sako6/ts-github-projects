@@ -9,6 +9,13 @@ describe('testing', () => {
       expect(data).toBeDefined();
     });
 
+    it('list open valid repository\'s projects', async () => {
+      expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
+      const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
+      const data = await gh.listRepositoryProjects('9sako6', 'ts-github-projects', 'open');
+      expect(data).toBeDefined();
+    });
+
     it('list all valid repository\'s projects', async () => {
       expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
       const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
@@ -16,7 +23,7 @@ describe('testing', () => {
       expect(data).toBeDefined();
     });
 
-    it('list all closed repository\'s projects', async () => {
+    it('list closed valid repository\'s projects', async () => {
       expect(process.env.PERSONAL_ACCESS_TOKEN).toBeTruthy();
       const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
       const data = await gh.listRepositoryProjects('9sako6', 'ts-github-projects', 'closed');
@@ -29,9 +36,45 @@ describe('testing', () => {
       expect(data).toBeDefined();
     });
 
+    it('list all valid organization\'s projects', async () => {
+      const gh = new TsGitHubProjects();
+      const data = await gh.listOrganizationProjects('9sako6-playground', 'all');
+      expect(data).toBeDefined();
+    });
+
+    it('list open valid organization\'s projects', async () => {
+      const gh = new TsGitHubProjects();
+      const data = await gh.listOrganizationProjects('9sako6-playground', 'open');
+      expect(data).toBeDefined();
+    });
+
+    it('list closed valid organization\'s projects', async () => {
+      const gh = new TsGitHubProjects();
+      const data = await gh.listOrganizationProjects('9sako6-playground', 'closed');
+      expect(data).toBeDefined();
+    });
+
     it('list valid user\'s projects', async () => {
       const gh = new TsGitHubProjects();
       const data = await gh.listUserProjects('9sako6');
+      expect(data).toBeDefined();
+    });
+
+    it('list all valid user\'s projects', async () => {
+      const gh = new TsGitHubProjects();
+      const data = await gh.listUserProjects('9sako6', 'all');
+      expect(data).toBeDefined();
+    });
+
+    it('list open valid user\'s projects', async () => {
+      const gh = new TsGitHubProjects();
+      const data = await gh.listUserProjects('9sako6', 'open');
+      expect(data).toBeDefined();
+    });
+
+    it('list closed valid user\'s projects', async () => {
+      const gh = new TsGitHubProjects();
+      const data = await gh.listUserProjects('9sako6', 'closed');
       expect(data).toBeDefined();
     });
   });
