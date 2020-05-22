@@ -66,4 +66,18 @@ describe('testing column', () => {
     const res = await gh.deleteProject(project.id);
     expect(res.status).toEqual(204);
   })
+
+  it('list 102 cards', async () => {
+    const [gh, project] = await setupAndCreateOrgProject();
+    const column = await gh.createColumn(project.id, { name: 'has 102 cards' });
+    const cardIds = [];
+    for (let i = 1; i <= 102; ++i) {
+      const card = await gh.createCard(column.id, { note: `card ${i}` });
+      cardIds.push(card.id);
+    }
+    const cards = await gh.listCards(column.id);
+    expect(cards.length).toEqual(102);
+    const res = await gh.deleteProject(project.id);
+    expect(res.status).toEqual(204);
+  });
 });
