@@ -1,4 +1,4 @@
-import TsGitHubProjects from '../../src/TsGitHubProjects';
+import { TsGitHubProjects } from '../../src/';
 import { UpdateProjectRequest } from '../../src/types';
 import { setupAndCreateOrgProject } from '../../src/testHelper';
 

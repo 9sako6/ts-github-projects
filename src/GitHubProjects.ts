@@ -188,13 +188,13 @@ export default abstract class GitHubProjects {
       .catch(err => { throw err; });
   }
 
-  async listCards(columnId: number, archived_state: ArchivedStatus = 'not_archived'): Promise<Array<Card>> {
+  protected async _listCards(columnId: number, archived_state: ArchivedStatus = 'not_archived', page = 1, per_page = 100): Promise<Array<Card>> {
     return await this.client
       .projects
       .columns
       ._cards_column_id(columnId)
       .cards
-      .$get({ query: { archived_state } })
+      .$get({ query: { archived_state, page, per_page } })
       .catch(err => { throw err; });
   }
 

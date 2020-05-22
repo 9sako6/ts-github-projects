@@ -1,4 +1,4 @@
-import TsGitHubProjects from '../src/index';
+import { TsGitHubProjects } from '../src';
 require('dotenv').config();
 const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
 

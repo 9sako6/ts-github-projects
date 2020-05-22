@@ -100,7 +100,11 @@ export type MoveColumnRequest = { position: string; };
 
 export type ArchivedStatus = 'all' | 'archived' | 'not_archived';
 
-export type ListCardsRequest = { archived_state: ArchivedStatus; };
+export type ListCardsRequest = Partial<{
+  archived_state: ArchivedStatus;
+  page: number;
+  per_page: number;
+}>;
 
 export type CreateCardRequest = {
   note?: string;
