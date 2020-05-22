@@ -1,4 +1,4 @@
-<h1 align="center">[WIP] ts-github-projects</h1>
+<h1 align="center">ts-github-projects</h1>
 <p align="center">
 <a href="https://badge.fury.io/js/ts-github-projects"><img src="https://badge.fury.io/js/ts-github-projects.svg" alt="npm version" height="18"></a>
 <a href="https://github.com/9sako6/ts-github-projects/actions?query=workflow%3ACI"><img src="https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg" alt="CI" height="18"></a>
@@ -71,7 +71,9 @@ I recommend you to use OAuth.
 
 ## How to authorize with GitHub Personal Access Token
 
-1. Create a personal access token ([Creating a personal access token for the command line - GitHub Help](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line))
+1. Create a personal access token ([Creating a personal access token for the command line - GitHub Help](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)).
+
+1. Use [motdotla/dotenv](https://github.com/motdotla/dotenv) to load your personal access token.
 
 1. Make `.env` file in the root directory of your project and set the token. For example:
 
@@ -79,10 +81,11 @@ I recommend you to use OAuth.
    PERSONAL_ACCESS_TOKEN=<personal_access_token>
    ```
 
-1. You can access it with `process.env.PERSONAL_ACCESS_TOKEN` ([motdotla/dotenv](https://github.com/motdotla/dotenv))
+1. You can access it with `process.env.PERSONAL_ACCESS_TOKEN`.
 
    ```typescript
-   import TsGitHubProjects from "ts-github-projects";
+   import { TsGitHubProjects } from "ts-github-projects";
+   require("dotenv").config(); // dotenv
 
    const gh = new TsGitHubProjects({
      token: process.env.PERSONAL_ACCESS_TOKEN!,
@@ -94,7 +97,8 @@ I recommend you to use OAuth.
 ## Examples
 
 ```typescript
-import TsGitHubProjects from "ts-github-projects";
+import { TsGitHubProjects } from "ts-github-projects";
+require("dotenv").config(); // dotenv
 
 const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
 
@@ -108,7 +112,7 @@ const project = await gh.createUserProject({
 });
 
 // create a column
-const column = await gh.createColumn(project?.id, {
-  name: "ToDo",
+const column = await gh.createColumn(project.id, {
+  name: "To do",
 });
 ```
