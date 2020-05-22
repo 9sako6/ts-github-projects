@@ -1,4 +1,4 @@
-import TsGitHubProjects from './TsGitHubProjects';
+import { TsGitHubProjects } from './';
 import { Project } from './types';
 
 export async function setupAndCreateOrgProject(): Promise<[TsGitHubProjects, Project]> {

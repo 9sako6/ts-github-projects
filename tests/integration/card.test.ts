@@ -1,4 +1,4 @@
-import TsGitHubProjects from '../../src/TsGitHubProjects';
+import { TsGitHubProjects } from '../../src/';
 import { setupAndCreateOrgProject } from '../../src/testHelper';
 
 describe('testing column', () => {
