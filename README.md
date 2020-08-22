@@ -6,7 +6,7 @@
 
 This is a simple library to manage GitHub Projects easily.
 This supports to create a project, column, card, update them, show them, delete them, etc...
-The library is built with [GitHub REST API v3](https://developer.github.com/v3/projects/).
+The library is built with [GitHub Projects API](https://docs.github.com/en/rest/reference/projects).
 
 # Install
 
