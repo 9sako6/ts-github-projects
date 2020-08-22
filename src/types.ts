@@ -61,6 +61,8 @@ export interface Card extends Timestamp {
 
 export type Auth = { token: string; };
 
+export type Authz = { token: string; };
+
 type RateLimitAttributes = {
   limit: number;
   ramaining: number;
@@ -122,3 +124,8 @@ export type MoveCardRequest = {
   position: string;
   column_id: number;
 };
+
+export type SelectParams = |
+{ owner: string, repo?: string, projectId?: never, columnId?: never } | // it will fetch projects
+{ owner?: never, repo?: never, projectId: number | string, columnId?: never } | // it will fetch columns
+{ owner?: never, repo?: never, projectId?: never, columnId: number | string }; // it will fetch cards
