@@ -1,0 +1,20 @@
+export const sampleUser = {
+  login: 'sample',
+  id: 2,
+  node_id: '',
+  avatar_url: '',
+  gravatar_id: '',
+  url: 'https://api.github.com/users/sample',
+  html_url: 'https://github.com/sample',
+  followers_url: 'https://api.github.com/users/sample/followers',
+  following_url: 'https://api.github.com/users/sample/following{/other_user}',
+  gists_url: 'https://api.github.com/users/sample/gists{/gist_id}',
+  starred_url: 'https://api.github.com/users/sample/starred{/owner}{/repo}',
+  subscriptions_url: 'https://api.github.com/users/sample/subscriptions',
+  organizations_url: 'https://api.github.com/users/sample/orgs',
+  repos_url: 'https://api.github.com/users/sample/repos',
+  events_url: 'https://api.github.com/users/sample/events{/privacy}',
+  received_events_url: 'https://api.github.com/users/sample/received_events',
+  type: 'User',
+  site_admin: false
+}

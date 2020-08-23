@@ -36,6 +36,9 @@ export interface Project extends Timestamp {
   number: number;
   state: 'open' | 'close';
   creator: Creator;
+  columns?: Array<Column>;
+  organization_permission: string;
+  private: boolean;
 }
 
 export interface Column extends Timestamp {
@@ -45,6 +48,7 @@ export interface Column extends Timestamp {
   id: number;
   node_id: string;
   name: string;
+  cards?: Array<Card>;
 }
 
 export interface Card extends Timestamp {
@@ -55,7 +59,7 @@ export interface Card extends Timestamp {
   creator: Creator;
   archived: boolean;
   column_url: string;
-  content_url: string;
+  content_url?: string;
   project_url: string;
 }
 
@@ -124,6 +128,10 @@ export type MoveCardRequest = {
   position: string;
   column_id: number;
 };
+
+export type TargetParam = 'projects' | 'columns' | 'cards';
+
+export type EagerLoadParam = 'columns' | 'cards';
 
 export type SelectParams = |
 { owner: string, repo?: string, projectId?: never, columnId?: never } | // it will fetch projects
