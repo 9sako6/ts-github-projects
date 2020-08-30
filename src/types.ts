@@ -63,8 +63,6 @@ export interface Card extends Timestamp {
   project_url: string;
 }
 
-export type Auth = { token: string; };
-
 export type Authz = { token: string; };
 
 type RateLimitAttributes = {
@@ -73,7 +71,7 @@ type RateLimitAttributes = {
   reset: number;
 };
 
-export type RateLimit = {
+export type RateLimitResponse = {
   resources: {
     core: RateLimitAttributes;
     graphql: RateLimitAttributes;
@@ -81,52 +79,6 @@ export type RateLimit = {
     search: RateLimitAttributes;
   }
   rate: RateLimitAttributes;
-};
-
-export type CreateProjectRequest = {
-  name: string;
-  body?: string;
-};
-
-export type UpdateProjectRequest = Partial<{
-  name: string;
-  body: string;
-  state: 'open' | 'closed';
-  organization_permission: 'read' | 'write' | 'admin' | 'none';
-  private: boolean;
-}>;
-
-export type ListProjectsRequest = { state: 'open' | 'closed' | 'all' };
-
-export type CreateColumnRequest = { name: string; };
-
-export type UpdateColumnRequest = { name: string; };
-
-export type MoveColumnRequest = { position: string; };
-
-export type ArchivedStatus = 'all' | 'archived' | 'not_archived';
-
-export type ListCardsRequest = Partial<{
-  archived_state: ArchivedStatus;
-  page: number;
-  per_page: number;
-}>;
-
-export type CreateCardRequest = {
-  note?: string;
-} | {
-  content_id: string;
-  content_type: string;
-};
-
-export type UpdateCardRequest = Partial<{
-  note: string;
-  archived: boolean;
-}>;
-
-export type MoveCardRequest = {
-  position: string;
-  column_id: number;
 };
 
 export type TargetParam = 'projects' | 'columns' | 'cards';

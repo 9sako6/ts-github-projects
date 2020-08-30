@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "declaration": true,
     "target": "es5",
     "module": "commonjs",
-    "rootDir": "./",
+    "moduleResolution": "node",
     "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "outDir": "./dist",
-    "esModuleInterop": true,
-  },
-  "include": ["./apis/**/*.ts", "./src/**/*.ts"],
-  "exclude": ["**/*.test.ts"]
+    "skipLibCheck": true,
+    "declaration": true,
+    "pretty": true,
+    "newLine": "lf",
+    "outDir": "dist"
+  }
 }

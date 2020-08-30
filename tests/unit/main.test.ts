@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { QueryBuilder } from '../../src/queryBuilder';
+import { QueryBuilder } from '../../src';
 import { sampleUserProject } from '../fixtures/projects';
 import { sampleColumn } from '../fixtures/columns';
 import { sampleCard } from '../fixtures/cards';
