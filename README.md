@@ -63,6 +63,51 @@ yarn add ts-github-projects
 - [ ] add user as a collaborator
 - [ ] remove user as a collaborator
 
+# [WIP] New API Features
+
+## Utilities
+
+- [x] rate limit
+
+## Projects
+
+- [ ] create a repository project
+- [ ] create an organization project
+- [ ] create a user project
+- [ ] get a project
+- [x] list repository's projects
+- [x] list organization's projects
+- [x] list user's projects
+- [ ] update a project
+- [ ] delete a project
+
+## Columns
+
+- [ ] crate a column
+- [ ] get a column
+- [x] list columns
+- [ ] update a column
+- [ ] delete a column
+- [ ] move a column
+
+## Cards
+
+- [ ] crate a card
+  - [ ] associate with issue
+  - [ ] associate with pull request
+- [ ] get a card
+- [x] list cards
+- [ ] update a card
+- [ ] delete a card
+- [ ] move a card
+
+## Collaborators
+
+- [ ] list collaborators
+- [ ] review a user's permission level
+- [ ] add user as a collaborator
+- [ ] remove user as a collaborator
+
 # Usage
 
 For GitHub API v3 requests using OAuth, you can make up to 5000 requests per hour. For unauthenticated requests, the rate limit allows for up to 60 requests per hour. ([Rate limiting - GitHub Developer](https://developer.github.com/v3/#rate-limiting))
@@ -84,12 +129,10 @@ I recommend you to use OAuth.
 1. You can access it with `process.env.PERSONAL_ACCESS_TOKEN`.
 
    ```typescript
-   import { TsGitHubProjects } from "ts-github-projects";
+   import { QueryBuilder } from "ts-github-projects";
    require("dotenv").config(); // dotenv
 
-   const gh = new TsGitHubProjects({
-     token: process.env.PERSONAL_ACCESS_TOKEN!,
-   });
+   const gh = new QueryBuilder({ token: process.env.PERSONAL_ACCESS_TOKEN! })
    ```
 
 1. Don't forget to add `.env` to your `.gitignore` file.
@@ -97,22 +140,14 @@ I recommend you to use OAuth.
 ## Examples
 
 ```typescript
-import { TsGitHubProjects } from "ts-github-projects";
+import { QueryBuilder } from "ts-github-projects";
 require("dotenv").config(); // dotenv
 
-const gh = new TsGitHubProjects({ token: process.env.PERSONAL_ACCESS_TOKEN! });
-
-// list projects
-const projectsList = await gh.listUserProjects("username");
-
-// create a project
-const project = await gh.createUserProject({
-  name: "My ToDo List",
-  body: "description of the project",
-});
-
-// create a column
-const column = await gh.createColumn(project.id, {
-  name: "To do",
-});
+// skip 10 projects and fetch up to 2 projects with columns and cards.
+const gh = new QueryBuilder({ token: process.env.PERSONAL_ACCESS_TOKEN! })
+  .select({ owner: '9sako6-playground' })
+  .skip(10)
+  .limit(2)
+  .eagerLoad('columns', 'cards')
+  .fetch();
 ```
