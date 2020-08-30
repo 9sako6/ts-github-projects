@@ -12,7 +12,7 @@
   "scripts": {
     "api:build": "./node_modules/.bin/aspida --build",
     "build": "tsc",
-    "test": "jest",
+    "test": "jest tests/unit/main.test.ts",
     "lint": "npx eslint . --ext ts",
     "lintfix": "npx eslint . --ext ts --fix",
     "npm:patch": "npm version patch",
