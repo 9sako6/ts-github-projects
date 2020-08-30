@@ -1,13 +1,12 @@
 {
   "author": "9sako6",
-  "name": "ts-github-projects",
-  "version": "0.0.32",
+  "name": "ghpj",
+  "version": "0.1.1",
   "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
-  "homepage": "https://github.com/9sako6/ts-github-projects",
+  "homepage": "https://github.com/9sako6/ghpj",
   "repository": {
     "type": "git",
-    "url": "https://github.com/9sako6/ts-github-projects.git"
+    "url": "https://github.com/9sako6/ghpj.git"
   },
   "scripts": {
     "api:build": "./node_modules/.bin/aspida --build",
@@ -27,7 +26,6 @@
     "dotenv": "^8.2.0",
     "eslint": "^7.7.0",
     "jest": "^26.0.1",
-    "ts-github-projects": "^0.0.14",
     "ts-jest": "^25.5.1",
     "ts-node": "^8.10.1",
     "typescript": "^4.0.2"
@@ -36,7 +34,6 @@
     "dist"
   ],
   "dependencies": {
-    "@aspida/axios": "^0.5.2",
     "axios": "^0.19.2"
   },
   "license": "MIT License",

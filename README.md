@@ -1,7 +1,7 @@
-<h1 align="center">ts-github-projects</h1>
+<h1 align="center">ghpj</h1>
 <p align="center">
-<a href="https://badge.fury.io/js/ts-github-projects"><img src="https://badge.fury.io/js/ts-github-projects.svg" alt="npm version" height="18"></a>
-<a href="https://github.com/9sako6/ts-github-projects/actions?query=workflow%3ACI"><img src="https://github.com/9sako6/ts-github-projects/workflows/CI/badge.svg" alt="CI" height="18"></a>
+<a href="https://badge.fury.io/js/ghpj"><img src="https://badge.fury.io/js/ghpj.svg" alt="npm version" height="18"></a>
+<a href="https://github.com/9sako6/ghpj/actions?query=workflow%3ACI"><img src="https://github.com/9sako6/ghpj/workflows/CI/badge.svg" alt="CI" height="18"></a>
 </p>
 
 This is a simple library to manage GitHub Projects easily.
@@ -12,101 +12,11 @@ The library is built with [GitHub Projects API](https://docs.github.com/en/rest/
 
 ```bash
 # with npm
-npm install ts-github-projects
+npm install ghpj
 
 # with yarn
-yarn add ts-github-projects
+yarn add ghpj
 ```
-
-# Features
-
-## Utilities
-
-- [x] rate limit
-
-## Projects
-
-- [x] create a repository project
-- [x] create an organization project
-- [x] create a user project
-- [x] get a project
-- [x] list repository's projects
-- [x] list organization's projects
-- [x] list user's projects
-- [x] update a project
-- [x] delete a project
-
-## Columns
-
-- [x] crate a column
-- [x] get a column
-- [x] list columns
-- [x] update a column
-- [x] delete a column
-- [x] move a column
-
-## Cards
-
-- [x] crate a card
-  - [ ] associate with issue
-  - [ ] associate with pull request
-- [x] get a card
-- [x] list cards
-- [x] update a card
-- [x] delete a card
-- [x] move a card
-
-## Collaborators
-
-- [ ] list collaborators
-- [ ] review a user's permission level
-- [ ] add user as a collaborator
-- [ ] remove user as a collaborator
-
-# [WIP] New API Features
-
-## Utilities
-
-- [x] rate limit
-
-## Projects
-
-- [ ] create a repository project
-- [ ] create an organization project
-- [ ] create a user project
-- [ ] get a project
-- [x] list repository's projects
-- [x] list organization's projects
-- [x] list user's projects
-- [ ] update a project
-- [ ] delete a project
-
-## Columns
-
-- [ ] crate a column
-- [ ] get a column
-- [x] list columns
-- [ ] update a column
-- [ ] delete a column
-- [ ] move a column
-
-## Cards
-
-- [ ] crate a card
-  - [ ] associate with issue
-  - [ ] associate with pull request
-- [ ] get a card
-- [x] list cards
-- [ ] update a card
-- [ ] delete a card
-- [ ] move a card
-
-## Collaborators
-
-- [ ] list collaborators
-- [ ] review a user's permission level
-- [ ] add user as a collaborator
-- [ ] remove user as a collaborator
 
 # Usage
 
@@ -129,10 +39,11 @@ I recommend you to use OAuth.
 1. You can access it with `process.env.PERSONAL_ACCESS_TOKEN`.
 
    ```typescript
-   import { QueryBuilder } from "ts-github-projects";
-   require("dotenv").config(); // dotenv
+   import { QueryBuilder } from "ghpj";
+   import * as dotenv from "dotenv";
+   dotenv.config();
 
-   const gh = new QueryBuilder({ token: process.env.PERSONAL_ACCESS_TOKEN! })
+   const gh = new QueryBuilder({ token: process.env.PERSONAL_ACCESS_TOKEN! });
    ```
 
 1. Don't forget to add `.env` to your `.gitignore` file.
@@ -140,14 +51,20 @@ I recommend you to use OAuth.
 ## Examples
 
 ```typescript
-import { QueryBuilder } from "ts-github-projects";
-require("dotenv").config(); // dotenv
+import { QueryBuilder } from "ghpj";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-// skip 10 projects and fetch up to 2 projects with columns and cards.
-const gh = new QueryBuilder({ token: process.env.PERSONAL_ACCESS_TOKEN! })
-  .select({ owner: '9sako6-playground' })
-  .skip(10)
-  .limit(2)
-  .eagerLoad('columns', 'cards')
-  .fetch();
+async function demo() {
+  // skip 10 projects and fetch up to 2 projects with columns and cards.
+  const gh = new QueryBuilder({ token: process.env.PERSONAL_ACCESS_TOKEN! });
+  const data = await gh
+    .select({ owner: "9sako6-playground" })
+    .skip(10)
+    .limit(2)
+    .eagerLoad("columns", "cards")
+    .fetch();
+}
+
+demo();
 ```
