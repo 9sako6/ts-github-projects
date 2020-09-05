@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { Authz, Card, Column, EagerLoadParam, RateLimitResponse, SelectParams, TargetParam } from './types';
+import { Authz, Card, Column, CreateParam, CreateRequest, EagerLoadParam, RateLimitResponse, SelectParams, SingleEntryParam, TargetParam, UpdateRequest } from './types';
 import { createClient } from './client';
 
 export class QueryBuilder {
@@ -101,6 +101,39 @@ export class QueryBuilder {
       .catch(error => { throw error; });
   }
 
+  create(requestData: CreateRequest): any
+  create(param: CreateParam, requestData: CreateRequest): any
+  async create(paramOrRequestData: CreateParam | CreateRequest, requestData?: CreateRequest) {
+    let param = undefined;
+    if (requestData) param = paramOrRequestData as CreateParam;
+
+    return await this.client
+      .post(this.buildPathToCreateEntry(param), requestData ? requestData : paramOrRequestData)
+      .then(res => res.data)
+      .catch(error => { throw error; });
+  }
+
+  async get(param: SingleEntryParam) {
+    return await this.client
+      .get(this.buildPathForSingleEntry(param))
+      .then(res => res.data)
+      .catch(error => { throw error; });
+  }
+
+  async update(param: SingleEntryParam, requestData: UpdateRequest) {
+    return await this.client
+      .patch(this.buildPathForSingleEntry(param), requestData)
+      .then(res => res.data)
+      .catch(error => { throw error; });
+  }
+
+  async delete(param: SingleEntryParam) {
+    return await this.client
+      .delete(this.buildPathForSingleEntry(param))
+      .then(res => res)
+      .catch(error => { throw error; });
+  }
+
   private initialParams() {
     return { limit: Infinity, skip: 0, where: { page: 1, per_page: 100 } };
   }
@@ -131,6 +164,36 @@ export class QueryBuilder {
       return `/orgs/${owner}/projects`;
     } else {
       throw new Error('The parameters of \'select\' query are invalid.');
+    }
+  }
+
+  private buildPathToCreateEntry(param: CreateParam | undefined): string {
+    if (param === undefined) {
+      // Create a user project
+      return '/user/projects';
+    } else if (param.owner && param.repo) {
+      // Create a repository project
+      return `/repos/${param.owner}/${param.repo}/projects`;
+    } else if (param.projectId) {
+      // Create a project column
+      return `/projects/${param.projectId}/columns`;
+    } else if (param.columnId) {
+      // Create a project card
+      return `/projects/columns/${param.columnId}/cards`;
+    } else {
+      throw new Error('The parameter of \'create\' method is invalid.');
+    }
+  }
+
+  private buildPathForSingleEntry(param: SingleEntryParam): string {
+    if (param.projectId) {
+      return `/projects/${param.projectId}`;
+    } else if (param.columnId) {
+      return `/projects/columns/${param.columnId}`;
+    } else if (param.cardId) {
+      return `/projects/columns/cards/${param.cardId}`;
+    } else {
+      throw new Error('The parameter is invalid.');
     }
   }
 

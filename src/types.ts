@@ -81,11 +81,71 @@ export type RateLimitResponse = {
   rate: RateLimitAttributes;
 };
 
+type Id = number | string;
+
 export type TargetParam = 'projects' | 'columns' | 'cards';
 
 export type EagerLoadParam = 'columns' | 'cards';
 
 export type SelectParams = |
 { owner: string, repo?: string, projectId?: never, columnId?: never } | // it will fetch projects
-{ owner?: never, repo?: never, projectId: number | string, columnId?: never } | // it will fetch columns
-{ owner?: never, repo?: never, projectId?: never, columnId: number | string }; // it will fetch cards
+{ owner?: never, repo?: never, projectId: Id, columnId?: never } | // it will fetch columns
+{ owner?: never, repo?: never, projectId?: never, columnId: Id }; // it will fetch cards
+
+export type SingleEntryParam = |
+{ projectId: Id, columnId?: never, cardId?: never } |
+{ projectId?: never, columnId: Id, cardId?: never } |
+{ projectId?: never, columnId?: never, cardId: Id };
+
+export type CreateParam = |
+{ owner: string, repo: string, columnId?: never, projectId?: never } |
+{ owner?: never, repo?: never, columnId?: never, projectId: Id } |
+{ owner?: never, repo?: never, columnId: Id, projectId?: never };
+
+export type CreateRequest = |
+{ name: string, body?: string, note?: never, content_id?: never, content_type?: never } | // for a project.
+{ name: string, body?: never, note?: never, content_id?: never, content_type?: never } | // for a column.
+{ name?: never, body?: never, note: string, content_id?: never, content_type?: never } | // for a card.
+{ name?: never, body?: never, note?: never, content_id: Id, content_type: 'Issue' | 'PullRequest' }; // for a card.
+
+export type UpdateRequest = |
+  /**
+   * project.
+   */
+  Partial<{
+    name: string,
+    body: string,
+    state: 'open' | 'closed',
+    organization_permission: 'read' | 'write' | 'admin' | 'none',
+    private: boolean,
+    // params for card.
+    note: never,
+    archived: never,
+  }> |
+  /**
+   * column
+   */
+  Partial<{
+    name: string,
+    // params for project.
+    body: never,
+    state: never,
+    organization_permission: never,
+    private: never,
+    // params for card.
+    note: never,
+    archived: never,
+  }> |
+  /**
+   * card
+   */
+  Partial<{
+    note: string,
+    archived: string
+    // params for project and column.
+    name: never,
+    body: never,
+    state: never,
+    organization_permission: never,
+    private: boolean,
+  }>;
