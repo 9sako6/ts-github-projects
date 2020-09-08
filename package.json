@@ -1,7 +1,7 @@
 {
   "author": "9sako6",
   "name": "ghpj",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/9sako6/ghpj",
