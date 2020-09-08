@@ -37,33 +37,35 @@ it('should create, get, update, delete a project column and card', async () => {
   const projectRequestData = { name: `a repository project created at ${Date.now()}` };
   const project = await gh.create({ owner: '9sako6', repo: 'ghpj' }, projectRequestData);
 
-  // The beggining of CRUD a column.
-  const columnRequestData = { name: `a column created at ${Date.now}` };
-  const column = await gh.create({ projectId: project.id }, columnRequestData);
+  {
+    // CRUD a column.
+    const columnRequestData = { name: `a column created at ${Date.now}` };
+    const column = await gh.create({ projectId: project.id }, columnRequestData);
 
-  const gotColumn = await gh.get({ columnId: column.id });
-  expect(gotColumn.name).toEqual(columnRequestData.name);
+    const gotColumn = await gh.get({ columnId: column.id });
+    expect(gotColumn.name).toEqual(columnRequestData.name);
 
-  const columnUpdateRequestData = { name: `a column updated at ${Date.now()}` };
-  const updatedColumn = await gh.update({ columnId: gotColumn.id }, columnUpdateRequestData);
-  expect(updatedColumn.name).toEqual(columnUpdateRequestData.name);
+    const columnUpdateRequestData = { name: `a column updated at ${Date.now()}` };
+    const updatedColumn = await gh.update({ columnId: gotColumn.id }, columnUpdateRequestData);
+    expect(updatedColumn.name).toEqual(columnUpdateRequestData.name);
 
-  // The beggining of CRUD a card.
-  const cardRequestData = { note: `a card created at ${Date.now}` };
-  const card = await gh.create({ columnId: column.id }, cardRequestData);
+    {
+      // CRUD a card.
+      const cardRequestData = { note: `a card created at ${Date.now}` };
+      const card = await gh.create({ columnId: column.id }, cardRequestData);
 
-  const gotCard = await gh.get({ cardId: card.id });
-  expect(gotCard.note).toEqual(cardRequestData.note);
+      const gotCard = await gh.get({ cardId: card.id });
+      expect(gotCard.note).toEqual(cardRequestData.note);
 
-  const cardUpdateRequestData = { note: `a card updated at ${Date.now()}` };
-  const updatedCard = await gh.update({ cardId: gotCard.id }, cardUpdateRequestData);
-  expect(updatedCard.note).toEqual(cardUpdateRequestData.note);
+      const cardUpdateRequestData = { note: `a card updated at ${Date.now()}` };
+      const updatedCard = await gh.update({ cardId: gotCard.id }, cardUpdateRequestData);
+      expect(updatedCard.note).toEqual(cardUpdateRequestData.note);
 
-  expect((await gh.delete({ cardId: updatedCard.id })).status).toBe(204);
-  // The end of CRUD a card.
+      expect((await gh.delete({ cardId: updatedCard.id })).status).toBe(204);
+    }
 
-  expect((await gh.delete({ columnId: updatedColumn.id })).status).toBe(204);
-  // The end of CRUD a column.
+    expect((await gh.delete({ columnId: updatedColumn.id })).status).toBe(204);
+  }
 
   // Delete a project
   expect((await gh.delete({ projectId: project.id })).status).toBe(204);
