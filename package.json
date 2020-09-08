@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest tests/unit/main.test.ts",
+    "test": "jest",
     "lint": "npx eslint . --ext ts",
     "lintfix": "npx eslint . --ext ts --fix",
     "npm:patch": "npm version patch",
