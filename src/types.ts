@@ -141,11 +141,11 @@ export type UpdateRequest = |
    */
   Partial<{
     note: string,
-    archived: string
+    archived: boolean,
     // params for project and column.
     name: never,
     body: never,
     state: never,
     organization_permission: never,
-    private: boolean,
+    private: never,
   }>;

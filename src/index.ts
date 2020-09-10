@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { Authz, Card, Column, CreateParam, CreateRequest, EagerLoadParam, RateLimitResponse, SelectParams, SingleEntryParam, TargetParam, UpdateRequest } from './types';
+import { Authz, Card, Column, CreateParam, CreateRequest, EagerLoadParam, Project, RateLimitResponse, SelectParams, SingleEntryParam, TargetParam, UpdateRequest } from './types';
 import { createClient } from './client';
 
 export class QueryBuilder {
@@ -101,8 +101,11 @@ export class QueryBuilder {
       .catch(error => { throw error; });
   }
 
-  create(requestData: CreateRequest): any
-  create(param: CreateParam, requestData: CreateRequest): any
+  create(requestData: { name: string, body?: string }): Promise<Project>
+  create(param: { owner: string, repo: string }, requestData: { name: string, body?: string }): Promise<Project>
+  create(param: { projectId: string | number }, requestData: { name: string }): Promise<Column>
+  create(param: { columnId: string | number }, requestData: { note: string }): Promise<Card>
+  create(param: { columnId: string | number }, requestData: { content_id: string | number, content_type: 'Issue' | 'PullRequest' }): Promise<Card>
   async create(paramOrRequestData: CreateParam | CreateRequest, requestData?: CreateRequest) {
     let param = undefined;
     if (requestData) param = paramOrRequestData as CreateParam;
@@ -120,6 +123,18 @@ export class QueryBuilder {
       .catch(error => { throw error; });
   }
 
+  update(
+    param: { projectId: string | number },
+    requestData: { name?: string, body?: string, state?: 'open' | 'closed', organization_permission?: 'read' | 'write' | 'admin' | 'none', private?: boolean }
+  ): Promise<Project>
+  update(
+    param: { columnId: string | number },
+    requestData: { name?: string }
+  ): Promise<Column>
+  update(
+    param: { cardId: string | number },
+    requestData: { note?: string, archived?: boolean }
+  ): Promise<Card>
   async update(param: SingleEntryParam, requestData: UpdateRequest) {
     return await this.client
       .patch(this.buildPathForSingleEntry(param), requestData)
