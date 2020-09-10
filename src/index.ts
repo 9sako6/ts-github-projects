@@ -202,7 +202,7 @@ export class QueryBuilder {
       return `/repos/${owner}/${repo}/projects`;
     } else if (owner) {
       this.params.target = 'projects';
-      return `/orgs/${owner}/projects`;
+      return `/users/${owner}/projects`;
     } else {
       throw new Error('The parameters of \'select\' query are invalid.');
     }

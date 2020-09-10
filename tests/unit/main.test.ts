@@ -8,9 +8,9 @@ import { sampleCard } from '../fixtures/cards';
 const mock = new MockAdapter(axios);
 
 it('should fetch organization projects', async () => {
-  mock.onGet('/orgs/sample-user/projects', { params: { page: 1, per_page: 100 } }).reply(200, Array(100).fill(1));
-  mock.onGet('/orgs/sample-user/projects', { params: { page: 2, per_page: 100 } }).reply(200, Array(10).fill(1));
-  mock.onGet('/orgs/sample-user/projects', { params: { page: 6, per_page: 100 } }).reply(200, []);
+  mock.onGet('/users/sample-user/projects', { params: { page: 1, per_page: 100 } }).reply(200, Array(100).fill(1));
+  mock.onGet('/users/sample-user/projects', { params: { page: 2, per_page: 100 } }).reply(200, Array(10).fill(1));
+  mock.onGet('/users/sample-user/projects', { params: { page: 6, per_page: 100 } }).reply(200, []);
 
   const gh = new QueryBuilder();
   let res = null;
@@ -38,7 +38,7 @@ it('should fetch organization projects', async () => {
 });
 
 it('#eagerLoad', async () => {
-  mock.onGet('/orgs/sample-user/projects', { params: { page: 1, per_page: 100 } }).reply(200, [sampleUserProject]);
+  mock.onGet('/users/sample-user/projects', { params: { page: 1, per_page: 100 } }).reply(200, [sampleUserProject]);
   mock.onGet(`/projects/${sampleUserProject.id}/columns`, { params: { page: 1, per_page: 100 } }).reply(200, [sampleColumn]);
   mock.onGet(`/projects/columns/${sampleColumn.id}/cards`, { params: { page: 1, per_page: 100 } }).reply(200, [sampleCard]);
 
