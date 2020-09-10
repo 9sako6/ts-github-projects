@@ -85,14 +85,14 @@ type Id = number | string;
 
 export type TargetParam = 'projects' | 'columns' | 'cards';
 
-export type EagerLoadParam = 'columns' | 'cards';
+export type WhereParam = { state?: 'open' | 'closed' | 'all', page: number, per_page: number };
 
-export type SelectParams = |
+export type SelectParam = |
 { owner: string, repo?: string, projectId?: never, columnId?: never } | // it will fetch projects
 { owner?: never, repo?: never, projectId: Id, columnId?: never } | // it will fetch columns
 { owner?: never, repo?: never, projectId?: never, columnId: Id }; // it will fetch cards
 
-export type SingleEntryParam = |
+export type QueryParam = |
 { projectId: Id, columnId?: never, cardId?: never } |
 { projectId?: never, columnId: Id, cardId?: never } |
 { projectId?: never, columnId?: never, cardId: Id };

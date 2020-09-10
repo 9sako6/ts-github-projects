@@ -1,15 +1,28 @@
 import { AxiosInstance } from 'axios';
-import { Authz, Card, Column, CreateParam, CreateRequest, EagerLoadParam, Project, RateLimitResponse, SelectParams, SingleEntryParam, TargetParam, UpdateRequest } from './types';
+import {
+  Authz,
+  Card,
+  Column,
+  CreateParam,
+  CreateRequest,
+  Project,
+  QueryParam,
+  RateLimitResponse,
+  SelectParam,
+  TargetParam,
+  UpdateRequest,
+  WhereParam,
+} from './types';
 import { createClient } from './client';
 
 export class QueryBuilder {
   private params: {
-    eagerLoad?: { [P in EagerLoadParam]: boolean },
+    eagerLoad?: { columns?: boolean, cards?: boolean },
     limit: number,
-    select?: SelectParams,
+    select?: SelectParam,
     skip: number,
     target?: TargetParam,
-    where: any,
+    where: WhereParam,
   };
   private path?: string;
   private client: AxiosInstance;
@@ -22,13 +35,17 @@ export class QueryBuilder {
     this.params = this.initialParams();
   }
 
-  select(params: SelectParams) {
-    this.params.select = params;
+  select(param: { owner: string }): this
+  select(param: { owner: string, repo: string }): this
+  select(param: { projectId: string | number }): this
+  select(param: { columnId: string | number }): this
+  select(param: SelectParam) {
+    this.params.select = param;
     return this;
   }
 
-  where(params: { state?: 'open' | 'closed' | 'all' }) {
-    this.params.where = { ...this.params.where, ...params };
+  where(param: WhereParam) {
+    this.params.where = { ...this.params.where, ...param };
     return this;
   }
 
@@ -46,22 +63,25 @@ export class QueryBuilder {
   /**
    * Specify relationships to be eager loaded in the result set.
    * 
-   * Projects has many columns.
-   * Columns has many cards.
+   * Projects have many columns.
+   * Columns have many cards.
    * Therefore, columns are projects' children and cards are projects' grandchildren.
    * As well, cards are columns' children.
    * 
    * For example:
    * 
    * ```
-   * const result = await instance.select({ owner: 'JaneDoe' })
+   * const result = await instance.select({ owner: 'jane-doe' })
    *  .eagerLoad('columns', 'cards')
    *  .fetch()
    * ```
    * 
    * `result` is array of projects which include columns and cards.
    */
-  eagerLoad(children: EagerLoadParam, grandchildren?: EagerLoadParam) {
+  eagerLoad(arg: 'columns'): this
+  eagerLoad(arg: 'cards'): this
+  eagerLoad(arg1: 'columns', arg2: 'cards'): this
+  eagerLoad(children: 'columns' | 'cards', grandchildren?: 'cards') {
     this.params.eagerLoad = { columns: false, cards: false };
     this.params.eagerLoad[children] = true;
     if (grandchildren) this.params.eagerLoad[grandchildren] = true;
@@ -69,7 +89,7 @@ export class QueryBuilder {
     return this;
   }
 
-  async fetch() {
+  async fetch(): Promise<Project[] | Column[] | Card[]> {
     for (; ;) {
       // NOTE: `offset` is used to omit `this.params.skip` number of data.
       const offset = Math.max(this.params.skip - (this.params.where.per_page * (this.params.where.page - 1)), 0);
@@ -116,7 +136,10 @@ export class QueryBuilder {
       .catch(error => { throw error; });
   }
 
-  async get(param: SingleEntryParam) {
+  get(param: { projectId: string | number }): Promise<Project>
+  get(param: { columnId: string | number }): Promise<Column>
+  get(param: { cardId: string | number }): Promise<Card>
+  async get(param: QueryParam) {
     return await this.client
       .get(this.buildPathForSingleEntry(param))
       .then(res => res.data)
@@ -135,14 +158,17 @@ export class QueryBuilder {
     param: { cardId: string | number },
     requestData: { note?: string, archived?: boolean }
   ): Promise<Card>
-  async update(param: SingleEntryParam, requestData: UpdateRequest) {
+  async update(param: QueryParam, requestData: UpdateRequest) {
     return await this.client
       .patch(this.buildPathForSingleEntry(param), requestData)
       .then(res => res.data)
       .catch(error => { throw error; });
   }
 
-  async delete(param: SingleEntryParam) {
+  delete(param: { projectId: string | number }): Promise<any>
+  delete(param: { columnId: string | number }): Promise<any>
+  delete(param: { cardId: string | number }): Promise<any>
+  async delete(param: QueryParam) {
     return await this.client
       .delete(this.buildPathForSingleEntry(param))
       .then(res => res)
@@ -200,7 +226,7 @@ export class QueryBuilder {
     }
   }
 
-  private buildPathForSingleEntry(param: SingleEntryParam): string {
+  private buildPathForSingleEntry(param: QueryParam): string {
     if (param.projectId) {
       return `/projects/${param.projectId}`;
     } else if (param.columnId) {
@@ -245,10 +271,14 @@ export class QueryBuilder {
       const target = this.params.target;
       const token = this.authz?.token;
 
-      const fetchedChildrenData = await Promise.all(this.fetchedData.map(function (item) {
-        return new QueryBuilder(token ? { token } : undefined)
-          .select(target === 'projects' ? { projectId: item.id } : { columnId: item.id })
-          .fetch();
+      const fetchedChildrenData = await Promise.all(this.fetchedData.map(function (item: Project | Column) {
+        const qb = new QueryBuilder(token ? { token } : undefined);
+
+        if (target === 'projects') {
+          return qb.select({ projectId: item.id }).fetch();
+        } else {
+          return qb.select({ columnId: item.id }).fetch();
+        }
       })).catch(error => { throw new Error(error); });
 
       this.fetchedData.forEach((item, index) => item[children] = fetchedChildrenData[index]);
@@ -260,16 +290,15 @@ export class QueryBuilder {
   private async loadGrandchildren() {
     if (this.params.target === 'projects') {
       const token = this.authz?.token;
+
       const fetchedGrandchildrenData = await Promise.all(this.fetchedData.map(function (item) {
         return Promise.all(item.columns.map(function (column: Column) {
-          return new QueryBuilder(token ? { token } : undefined)
-            .select({ columnId: column.id })
-            .fetch();
+          return new QueryBuilder(token ? { token } : undefined).select({ columnId: column.id }).fetch();
         })).catch(error => { throw new Error(error); });
       })).catch(error => { throw new Error(error); });
 
-      this.fetchedData.forEach((item, projectIndex) => {
-        item.columns.forEach((column: Column, columnIndex: number) => {
+      this.fetchedData.forEach((item: Project, projectIndex) => {
+        item.columns!.forEach((column: Column, columnIndex: number) => {
           column.cards = fetchedGrandchildrenData[projectIndex][columnIndex] as Array<Card>;
         });
       });
