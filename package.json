@@ -15,7 +15,7 @@
     "lint": "npx eslint . --ext ts",
     "lintfix": "npx eslint . --ext ts --fix",
     "npm:patch": "npm version patch",
-    "prepare": "rm -rf dist && yarn build && yarn test"
+    "prepare": "rm -rf dist && yarn build && rm -rf dist/tests && yarn test"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
